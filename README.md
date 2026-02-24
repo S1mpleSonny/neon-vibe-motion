@@ -1,4 +1,4 @@
-# Neon - AI-Driven Parametric Motion Generation Platform
+# Neon - Vibe Motion Platform
 
 Neon is an LLM-based motion graphics generation and real-time control platform. Describe effects in natural language, get Canvas 2D motion graphics with executable rendering code and adjustable parameter declarations. Tweak parameters in real time, export as video or standalone HTML — "generate and control" in one workflow.
 
@@ -7,6 +7,13 @@ Neon is an LLM-based motion graphics generation and real-time control platform. 
 [中文文档](./README.zh-CN.md)
 
 ![Neon Demo](./assets/demo.gif)
+
+## Live Demo
+
+- **Try it online**: [neon-vibe-motion.vercel.app](https://neon-vibe-motion.vercel.app)
+- **More demos**: [neon-vibe-motion.vercel.app/#/demos](https://neon-vibe-motion.vercel.app/#/demos)
+
+> **Note on the online version**: API requests are proxied through a Vercel Serverless Function to bypass browser CORS restrictions, with a **300-second timeout limit**. Your API key is forwarded server-side and is not stored. For long-running generations or unrestricted usage, we recommend running locally via `pnpm dev`. Users in mainland China may need some "magic" to access the demo.
 
 ## Why Open Source
 
