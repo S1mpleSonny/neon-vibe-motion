@@ -38,7 +38,6 @@ export function ChatPanel() {
     messages,
     llmConfigs,
     activeConfigId,
-    hasBuiltinKey,
     getActiveConfig,
     currentMotion,
     isGenerating,
@@ -82,7 +81,7 @@ export function ChatPanel() {
   } = useAppStore();
 
   // 判断是否有有效的 LLM 配置
-  const hasValidConfig = (llmConfigs.length > 0 && activeConfigId !== null) || hasBuiltinKey;
+  const hasValidConfig = llmConfigs.length > 0 && activeConfigId !== null;
 
   // 判断是否应该显示预设导入按钮：
   // - 已配置 LLM

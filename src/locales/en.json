@@ -18,6 +18,7 @@
   "chat.importSuccess": "Demo conversation imported",
   "chat.importFailed": "Import failed",
   "chat.importError": "Failed to import demo conversation",
+  "chat.configRequired": "Please configure LLM API first",
   "chat.configError": "Unable to get LLM config, please check if configuration is valid",
   "chat.emptyTitle": "Welcome to Neon Lab",
   "chat.emptyDescription": "Import a demo conversation to explore the platform",

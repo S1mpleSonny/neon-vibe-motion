@@ -16,7 +16,6 @@ function App() {
   const {
     llmConfigs,
     activeConfigId,
-    hasBuiltinKey,
     isLoadingConfigs,
     currentMotion,
     isSettingsOpen,
@@ -32,7 +31,7 @@ function App() {
   } = useAppStore();
 
   // 判断是否有有效的 LLM 配置
-  const hasValidConfig = (llmConfigs.length > 0 && activeConfigId !== null) || hasBuiltinKey;
+  const hasValidConfig = llmConfigs.length > 0 && activeConfigId !== null;
 
   useEffect(() => {
     loadFromStorage();
@@ -85,8 +84,7 @@ function App() {
           {!hasValidConfig && !isLoadingConfigs ? (
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center text-[var(--color-text-secondary)] px-4">
-                <p className="mb-3">请先配置 LLM API</p>
-                <p className="mb-3 font-body">如果没有API，可以找森破要一个～</p>
+                <p className="mb-3">{t('chat.configRequired')}</p>
                 <Button variant="secondary" size="sm" onClick={openSettings}>
                   {t('nav.openSettings')}
                 </Button>

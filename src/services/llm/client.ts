@@ -3,30 +3,6 @@ import { logger } from '../logging';
 
 const PROXY_ENABLED = import.meta.env.VITE_LLM_PROXY === 'true';
 
-export interface BuiltinConfig {
-  hasBuiltinKey: boolean;
-  defaultModel: string;
-}
-
-let builtinConfigCache: BuiltinConfig | null = null;
-
-export async function fetchBuiltinConfig(): Promise<BuiltinConfig> {
-  if (builtinConfigCache) return builtinConfigCache;
-  if (!PROXY_ENABLED) {
-    builtinConfigCache = { hasBuiltinKey: false, defaultModel: '' };
-    return builtinConfigCache;
-  }
-  try {
-    const res = await fetch('/api/llm/__config');
-    if (res.ok) {
-      builtinConfigCache = await res.json();
-      return builtinConfigCache!;
-    }
-  } catch { /* ignore */ }
-  builtinConfigCache = { hasBuiltinKey: false, defaultModel: '' };
-  return builtinConfigCache;
-}
-
 /**
  * Chat Completion 消息格式
  * content 支持字符串（纯文本）或 ContentPart 数组（多模态）(031-multimodal-input)
@@ -161,18 +137,16 @@ export class LLMClient {
     const { temperature = 1, maxTokens = 16384, signal } = options;
 
     const baseURL = this.config.baseURL.replace(/\/+$/, '');
-    const useBuiltin = PROXY_ENABLED && !this.config.apiKey;
-    const endpoint = PROXY_ENABLED
-      ? '/api/llm/chat/completions'
-      : `${baseURL}/chat/completions`;
+    const fullURL = `${baseURL}/chat/completions`;
+    const endpoint = PROXY_ENABLED ? '/api/proxy' : fullURL;
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
     if (this.config.apiKey) {
       headers['Authorization'] = `Bearer ${this.config.apiKey}`;
     }
-    if (PROXY_ENABLED && !useBuiltin) {
-      headers['X-Target-URL'] = baseURL;
+    if (PROXY_ENABLED) {
+      headers['X-Target-URL'] = fullURL;
     }
 
     let fullContent = '';
@@ -261,14 +235,14 @@ export class LLMClient {
   async validateConnection(): Promise<{ success: boolean; error?: string }> {
     try {
       const baseURL = this.config.baseURL.replace(/\/+$/, '');
-      const useBuiltin = PROXY_ENABLED && !this.config.apiKey;
-      const endpoint = PROXY_ENABLED ? '/api/llm/models' : `${baseURL}/models`;
+      const fullURL = `${baseURL}/models`;
+      const endpoint = PROXY_ENABLED ? '/api/proxy' : fullURL;
       const reqHeaders: Record<string, string> = {};
       if (this.config.apiKey) {
         reqHeaders['Authorization'] = `Bearer ${this.config.apiKey}`;
       }
-      if (PROXY_ENABLED && !useBuiltin) {
-        reqHeaders['X-Target-URL'] = baseURL;
+      if (PROXY_ENABLED) {
+        reqHeaders['X-Target-URL'] = fullURL;
       }
       const response = await fetchWithTimeout(
         endpoint,

@@ -515,8 +515,6 @@ export interface AppState {
   activeConfigId: string | null;
   /** 配置是否正在加载中 */
   isLoadingConfigs: boolean;
-  /** 服务端内置 API Key 是否可用 */
-  hasBuiltinKey: boolean;
 
   // 素材包导出状态 (017-export-asset-pack)
   /** 素材包导出对话框是否打开 */

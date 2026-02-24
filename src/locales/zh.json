@@ -18,6 +18,7 @@
   "chat.importSuccess": "已导入示例对话，可以查看参考效果",
   "chat.importFailed": "导入失败",
   "chat.importError": "导入示例对话失败",
+  "chat.configRequired": "请先配置 LLM API",
   "chat.configError": "无法获取 LLM 配置，请检查配置是否有效",
   "chat.emptyTitle": "欢迎来到 Neon Lab",
   "chat.emptyDescription": "导入一个示例对话，快速了解平台功能",

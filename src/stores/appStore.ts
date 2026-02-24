@@ -49,7 +49,6 @@ import {
   getCryptoSalt,
 } from '../services/storage';
 import { decrypt, decryptLegacy, encrypt, getOrCreateSalt } from '../services/crypto';
-import { fetchBuiltinConfig } from '../services/llm/client';
 import i18n from '../locales/i18n';
 import { revokeImageUrl } from '../utils/imageUtils';
 import { revokeVideoUrl } from '../utils/videoUtils';
@@ -251,7 +250,6 @@ const initialState: AppState = {
   llmConfigs: [],
   activeConfigId: null,
   isLoadingConfigs: false,
-  hasBuiltinKey: false,
   // 素材包导出状态 (017-export-asset-pack)
   isAssetPackExportDialogOpen: false,
   assetPackExportState: INITIAL_ASSET_PACK_EXPORT_STATE,
@@ -1073,11 +1071,6 @@ export const useAppStore = create<AppStore>((set, get) => ({
   initLLMConfigs: async () => {
     set({ isLoadingConfigs: true });
 
-    // 并行查询服务端内置 Key 可用性
-    const builtinPromise = fetchBuiltinConfig().then((bc) => {
-      set({ hasBuiltinKey: bc.hasBuiltinKey });
-    });
-
     try {
       // 尝试迁移旧配置
       const migratedList = await migrateOldConfig();
@@ -1087,7 +1080,6 @@ export const useAppStore = create<AppStore>((set, get) => ({
         if (changed) {
           saveLLMConfigs({ configs: migrated, activeConfigId: migratedList.activeConfigId });
         }
-        await builtinPromise;
         set({
           llmConfigs: migrated,
           activeConfigId: migratedList.activeConfigId,
@@ -1104,14 +1096,12 @@ export const useAppStore = create<AppStore>((set, get) => ({
         if (changed) {
           saveLLMConfigs({ configs: migrated, activeConfigId: configList.activeConfigId });
         }
-        await builtinPromise;
         set({
           llmConfigs: migrated,
           activeConfigId: configList.activeConfigId,
           isLoadingConfigs: false,
         });
       } else {
-        await builtinPromise;
         set({
           llmConfigs: [],
           activeConfigId: null,
@@ -1120,7 +1110,6 @@ export const useAppStore = create<AppStore>((set, get) => ({
       }
     } catch (error) {
       console.error('[AppStore] Failed to init LLM configs:', error);
-      await builtinPromise;
       set({
         llmConfigs: [],
         activeConfigId: null,
@@ -1212,23 +1201,9 @@ export const useAppStore = create<AppStore>((set, get) => ({
   },
 
   getActiveConfig: async (): Promise<DecryptedLLMConfig | null> => {
-    const { llmConfigs, activeConfigId, hasBuiltinKey } = get();
+    const { llmConfigs, activeConfigId } = get();
 
     if (!activeConfigId) {
-      // 没有用户配置时，如果服务端有内置 Key，返回空凭据占位
-      // LLMClient 在 proxy 模式下会省略 Authorization/X-Target-URL，由代理层用环境变量兜底
-      if (hasBuiltinKey) {
-        const bc = await fetchBuiltinConfig();
-        return {
-          id: '__builtin__',
-          name: 'Built-in',
-          baseURL: '',
-          apiKey: '',
-          model: bc.defaultModel || '',
-          createdAt: '',
-          updatedAt: '',
-        };
-      }
       return null;
     }
 

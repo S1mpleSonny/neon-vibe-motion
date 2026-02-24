@@ -25,7 +25,6 @@ export function PreviewPage() {
   const {
     llmConfigs,
     activeConfigId,
-    hasBuiltinKey,
     isLoadingConfigs,
     currentMotion,
     isSettingsOpen,
@@ -42,7 +41,7 @@ export function PreviewPage() {
     initLLMConfigs,
   } = useAppStore();
 
-  const hasValidConfig = (llmConfigs.length > 0 && activeConfigId !== null) || hasBuiltinKey;
+  const hasValidConfig = llmConfigs.length > 0 && activeConfigId !== null;
 
   // Initialize store data
   useEffect(() => {
@@ -128,8 +127,7 @@ export function PreviewPage() {
             {!hasValidConfig && !isLoadingConfigs ? (
               <div className="flex-1 flex items-center justify-center">
                 <div className="text-center text-text-muted px-4">
-                  <p className="mb-3 font-body">请先配置 LLM API</p>
-                  <p className="mb-3 font-body">如果没有API，可以找森破要一个～</p>
+                  <p className="mb-3 font-body">{t('chat.configRequired')}</p>
                   <Button variant="secondary" size="sm" onClick={openSettings}>
                     {t('nav.openSettings')}
                   </Button>
