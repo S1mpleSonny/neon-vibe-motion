@@ -1,0 +1,31 @@
+{
+  "id": "test-circle",
+  "renderMode": "canvas",
+  "duration": 1000,
+  "width": 640,
+  "height": 360,
+  "backgroundColor": "#000000",
+  "elements": [],
+  "createdAt": 1738000000000,
+  "updatedAt": 1738000000000,
+  "parameters": [
+    {
+      "id": "radius",
+      "name": "半径",
+      "type": "number",
+      "path": "params.radius",
+      "value": 50,
+      "min": 10,
+      "max": 200,
+      "step": 5
+    },
+    {
+      "id": "color",
+      "name": "颜色",
+      "type": "color",
+      "path": "params.color",
+      "colorValue": "#ff4400"
+    }
+  ],
+  "code": "window.__motionRender = function(ctx, time, params, canvas) { const w = canvas.width; const h = canvas.height; const r = params.radius || 50; const c = params.color || '#ff4400'; const progress = time / 1000; const x = w * 0.5 + Math.cos(progress * Math.PI * 4) * w * 0.3; const y = h * 0.5 + Math.sin(progress * Math.PI * 4) * h * 0.3; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = c; ctx.fill(); }"
+}

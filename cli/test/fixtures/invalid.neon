@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "name": "invalid",
+  "renderMode": "canvas",
+  "duration": 50,
+  "width": -100,
+  "backgroundColor": "#000000",
+  "code": "console.log('no __motionRender here')"
+}

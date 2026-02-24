@@ -1,0 +1,105 @@
+{
+  "version": "1.0.0",
+  "items": [
+    {
+      "id": "pelican",
+      "type": "demo",
+      "title": "Pelican",
+      "parentId": null,
+      "order": 0,
+      "thumbnail": "/demos/thumbnails/Pelican.png",
+      "htmlPath": "/demos/html/Pelican.html",
+      "description": "Generate a pelican riding a bicycle"
+    },
+    {
+      "id": "floating-glass-cards-3d-parallax-timeline",
+      "type": "demo",
+      "title": "Floating Glass Cards 3D Parallax Timeline",
+      "parentId": null,
+      "order": 1,
+      "thumbnail": "/demos/thumbnails/Floating Glass Cards 3D Parallax Timeline.png",
+      "htmlPath": "/demos/html/Floating Glass Cards 3D Parallax Timeline.html",
+      "description": "Create a parallax timeline using floating glass cards. Glide smoothly through 3D space, bringing each milestone into sharp focus with a depth-of-field effect."
+    },
+    {
+      "id": "origami-pie-chart-animation",
+      "type": "demo",
+      "title": "Origami Pie Chart Animation",
+      "parentId": null,
+      "order": 2,
+      "thumbnail": "/demos/thumbnails/Origami Pie Chart Animation.png",
+      "htmlPath": "/demos/html/Origami Pie Chart Animation.html",
+      "description": "Animate a pie chart unfolding like elegant origami petals. Use soft shadows and a pastel palette for a tactile, high-quality paper feel."
+    },
+    {
+      "id": "prismatic-glass-title-reveal",
+      "type": "demo",
+      "title": "Prismatic Glass Title Reveal",
+      "parentId": null,
+      "order": 3,
+      "thumbnail": "/demos/thumbnails/Prismatic Glass Title Reveal.png",
+      "htmlPath": "/demos/html/Prismatic Glass Title Reveal.html",
+      "description": "Reveal the title through a prismatic glass distortion. Split the light into RGB channels briefly before the text crystallizes into a clean solid form."
+    },
+    {
+      "id": "liquid-morph-transition",
+      "type": "demo",
+      "title": "Liquid Morph Transition",
+      "parentId": null,
+      "order": 4,
+      "thumbnail": "/demos/thumbnails/Liquid Morph Transition.png",
+      "htmlPath": "/demos/html/Liquid Morph Transition.html",
+      "description": "Create a liquid morph where the screen melts into a fluid shape and reshapes into the new slide. Keep the motion silky smooth and elegant."
+    },
+    {
+      "id": "liquid-metal-morph-loop",
+      "type": "demo",
+      "title": "Liquid Metal Morph Loop",
+      "parentId": null,
+      "order": 5,
+      "thumbnail": "/demos/thumbnails/Liquid Metal Morph Loop.png",
+      "htmlPath": "/demos/html/Liquid Metal Morph Loop.html",
+      "description": "Design a mesmerizing loop of liquid metal morphing in the center. Overlay the text \"COMING SOON\" in a bold font that interacts with the metallic reflection."
+    },
+    {
+      "id": "bubble-bullet-points",
+      "type": "demo",
+      "title": "Bubble Bullet Points",
+      "parentId": null,
+      "order": 6,
+      "thumbnail": "/demos/thumbnails/Bubble Bullet Points.png",
+      "htmlPath": "/demos/html/Bubble Bullet Points.html",
+      "description": "Animate bullet points floating up like bubbles in water. Use a gentle ease-out motion and a subtle transparency effect for a light, airy feel."
+    },
+    {
+      "id": "breathing-gradient-sphere",
+      "type": "demo",
+      "title": "Breathing Gradient Sphere",
+      "parentId": null,
+      "order": 7,
+      "thumbnail": "/demos/thumbnails/Breathing Gradient Sphere.png",
+      "htmlPath": "/demos/html/Breathing Gradient Sphere.html",
+      "description": "Render a gradient sphere slowly breathing and changing colors like a sunset. Float the word \"CALM\" in the center with a soft blur effect."
+    },
+    {
+      "id": "dynamic-bar-chart",
+      "type": "demo",
+      "title": "动态柱状图",
+      "parentId": null,
+      "order": 9,
+      "thumbnail": "/demos/thumbnails/动态柱状图.png",
+      "htmlPath": "/demos/html/动态柱状图.html",
+      "description": "动态柱状图，数据可视化"
+    },
+    {
+      "id": "path-subtitle",
+      "type": "demo",
+      "title": "路径字幕",
+      "parentId": null,
+      "order": 8,
+      "thumbnail": "/demos/thumbnails/路径字幕.png",
+      "htmlPath": "/demos/html/路径字幕.html",
+      "description": "文字沿优雅图片边缘灵动飞舞，为画面注入生命力"
+    }
+  ]
+}

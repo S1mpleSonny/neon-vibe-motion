@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+__pycache__/
+package-lock.json
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+
+# Skills dependencies
+skills/*/scripts/node_modules/
+
+# Internal development docs
+specs/
+docs/
+CLAUDE.md
+
+# Claude Code local settings
+.claude/

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}}</title>
+  <style>
+    {{STYLES}}
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 头部区域 -->
+    <header class="app-header">
+      <h1 class="app-title">{{HEADER_TITLE}}</h1>
+      <div class="header-controls">
+        <button id="play-btn" class="control-btn" title="播放/暂停">
+          <svg class="icon icon-play" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <svg class="icon icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+        </button>
+        <button id="stop-btn" class="control-btn" title="停止">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 6h12v12H6z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <!-- Canvas 预览区 -->
+      <div class="preview-area">
+        <div class="canvas-container" id="canvas-container">
+          <canvas id="motion-canvas"></canvas>
+        </div>
+      </div>
+
+      <!-- 参数面板 -->
+      {{PARAMETER_PANEL}}
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="app-footer">
+      <p class="footer-text">
+        导出自 <strong>Neon Motion Platform</strong> · {{EXPORT_TIME}}
+      </p>
+    </footer>
+  </div>
+
+  <!-- 工具函数 -->
+  <script>
+    {{UTILS_CODE}}
+  </script>
+
+  <!-- 图片预加载 -->
+  <script>
+    {{IMAGE_PRELOAD_CODE}}
+  </script>
+
+  <!-- 渲染器代码 -->
+  <script>
+    {{RENDERER_CODE}}
+  </script>
+
+  <!-- 控件绑定代码 -->
+  <script>
+    {{CONTROL_BINDINGS}}
+  </script>
+
+  <!-- 播放控制绑定 -->
+  <script>
+    (function() {
+      var playBtn = document.getElementById('play-btn');
+      var stopBtn = document.getElementById('stop-btn');
+      var iconPlay = playBtn.querySelector('.icon-play');
+      var iconPause = playBtn.querySelector('.icon-pause');
+
+      function updatePlayIcon(isPlaying) {
+        iconPlay.style.display = isPlaying ? 'none' : 'block';
+        iconPause.style.display = isPlaying ? 'block' : 'none';
+      }
+
+      playBtn.addEventListener('click', function() {
+        if (window.motionControls.isPlaying()) {
+          window.motionControls.pause();
+          updatePlayIcon(false);
+        } else {
+          window.motionControls.play();
+          updatePlayIcon(true);
+        }
+      });
+
+      stopBtn.addEventListener('click', function() {
+        window.motionControls.stop();
+        updatePlayIcon(false);
+      });
+
+      // 初始状态
+      updatePlayIcon(true);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "name": "neon",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:harness": "vite build --config vite.harness.config.ts",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "h264-mp4-encoder": "^1.0.12",
+    "i18next": "^25.8.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^16.5.4",
+    "react-router-dom": "^7.12.0",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@types/crypto-js": "^4.2.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.15.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "globals": "^15.12.0",
+    "jsdom": "^25.0.1",
+    "postcss": "^8.4.49",
+    "prettier": "^3.4.1",
+    "tailwindcss": "^3.4.15",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "^8.15.0",
+    "vite": "^6.0.1",
+    "vite-plugin-static-copy": "^3.2.0",
+    "vitest": "^2.1.6"
+  }
+}

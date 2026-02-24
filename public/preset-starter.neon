@@ -1,0 +1,3439 @@
+[
+  {
+    "version": "0.1.0",
+    "exportedAt": 1768550485632,
+    "conversation": {
+      "id": "50b1c75b-351d-4acc-860a-d490471b83ef",
+      "title": "画一个方块",
+      "messages": [
+        {
+          "id": "msg_1768547843738_7q6g1tw",
+          "role": "user",
+          "content": "画一个红色方块",
+          "timestamp": 1768547843738
+        },
+        {
+          "id": "msg_1768547883411_h9p27bt",
+          "role": "assistant",
+          "content": "为了更好地理解您的需求，我需要确认几个问题：",
+          "timestamp": 1768547883411
+        },
+        {
+          "id": "msg_1768547889214_9p0jcz8",
+          "role": "user",
+          "content": "您希望红色方块执行什么样的动画效果？\n→ 旋转",
+          "timestamp": 1768547889214
+        },
+        {
+          "id": "msg_1768547889944_n7hns4v",
+          "role": "user",
+          "content": "您希望动画的速度节奏是怎样的？\n→ 平缓且流畅",
+          "timestamp": 1768547889944
+        },
+        {
+          "id": "msg_1768547890582_37udiwm",
+          "role": "user",
+          "content": "动画应该如何循环播放？\n→ 无限循环",
+          "timestamp": 1768547890582
+        },
+        {
+          "id": "msg_1768547946093_5y6apij",
+          "role": "assistant",
+          "content": "已为您生成动效，可以在右侧预览区查看。您可以继续描述来调整动效，或使用参数面板进行微调。",
+          "timestamp": 1768547946093,
+          "motionSnapshot": "motion_1768547946065_tv2cy3l"
+        },
+        {
+          "id": "msg_1768548284689_ztvq95u",
+          "role": "user",
+          "content": "颜色改成绿色",
+          "timestamp": 1768548284689
+        },
+        {
+          "id": "msg_1768548289934_rdqsjjf",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768548289934,
+          "motionSnapshot": "motion_1768547946065_tv2cy3l"
+        }
+      ],
+      "motion": {
+        "id": "motion_1768547946065_tv2cy3l",
+        "renderMode": "canvas",
+        "duration": 3000,
+        "width": 640,
+        "height": 360,
+        "backgroundColor": "#1a1a1a",
+        "elements": [],
+        "parameters": [
+          {
+            "id": "blockColor",
+            "name": "方块颜色",
+            "type": "color",
+            "path": "params.blockColor",
+            "colorValue": "#00ff00"
+          },
+          {
+            "id": "blockSize",
+            "name": "方块大小",
+            "type": "number",
+            "path": "params.blockSize",
+            "min": 0.05,
+            "max": 0.5,
+            "step": 0.01,
+            "value": 0.23
+          },
+          {
+            "id": "rotationSpeed",
+            "name": "旋转速度",
+            "type": "number",
+            "path": "params.rotationSpeed",
+            "min": 0.1,
+            "max": 5,
+            "step": 0.1,
+            "value": 1
+          }
+        ],
+        "code": "function render(ctx, time, params, canvas) {\n  const { width, height } = canvas;\n  const centerX = width / 2;\n  const centerY = height / 2;\n\n  // 计算方块尺寸（基于画布短边的比例）\n  const size = Math.min(width, height) * params.blockSize;\n\n  // 计算旋转角度\n  // time 从 0 到 duration 循环，实现无限循环\n  // 除以 3000 是为了让默认速度下 3 秒转一圈\n  const angle = (time / 3000) * Math.PI * 2 * params.rotationSpeed;\n\n  ctx.save();\n  \n  // 移动坐标系到画布中心\n  ctx.translate(centerX, centerY);\n  \n  // 旋转坐标系\n  ctx.rotate(angle);\n  \n  // 绘制方块（以中心为原点）\n  ctx.fillStyle = params.blockColor;\n  ctx.fillRect(-size / 2, -size / 2, size, size);\n  \n  ctx.restore();\n}\n\nwindow.__motionRender = render;",
+        "createdAt": 1768547946065,
+        "updatedAt": 1768550341658
+      },
+      "createdAt": 1768547836881,
+      "updatedAt": 1768547836881
+    }
+  },
+  {
+    "version": "0.1.0",
+    "exportedAt": 1768550485646,
+    "conversation": {
+      "id": "2e9a9dae-4cdd-416c-9afb-fa89986b5c2e",
+      "title": "路径字幕（可调参数)",
+      "messages": [
+        {
+          "id": "msg_1767585520274_mmiusxy",
+          "role": "user",
+          "content": "绘制一串字符，字符要求以一个圣诞树的形状排列（即整体形状是一个圣诞树，每个字都放在边缘上，沿法线方向朝外），字符内容是“Merry Christmas”循环",
+          "timestamp": 1767585520274
+        },
+        {
+          "id": "msg_1767585535281_vjmh80m",
+          "role": "assistant",
+          "content": "为了更好地理解您的需求，我需要确认几个问题：",
+          "timestamp": 1767585535281
+        },
+        {
+          "id": "msg_1767585547277_fsgesqp",
+          "role": "user",
+          "content": "您希望字符以什么样的方式进行“循环”动画？\n→ 跑马灯效果：字符沿着圣诞树轮廓持续流动",
+          "timestamp": 1767585547277
+        },
+        {
+          "id": "msg_1767585550301_np7xtjv",
+          "role": "user",
+          "content": "您希望这棵“字符圣诞树”使用什么颜色方案？\n→ 经典圣诞色：红、绿、金交替",
+          "timestamp": 1767585550301
+        },
+        {
+          "id": "msg_1767585556286_hwogods",
+          "role": "user",
+          "content": "圣诞树的轮廓形状具体想要哪种精细度？\n→ 完整造型：包含树干和顶端星形装饰的轮廓",
+          "timestamp": 1767585556286
+        },
+        {
+          "id": "msg_1767585558026_c74967q",
+          "role": "user",
+          "content": "您预想的动画节奏是怎样的？\n→ 缓慢优雅：平滑且安静的流动感",
+          "timestamp": 1767585558026
+        },
+        {
+          "id": "msg_1767585560619_phh581u",
+          "role": "user",
+          "content": "整体的视觉风格倾向于哪种？\n→ 手绘/温馨：柔和的边缘和质感",
+          "timestamp": 1767585560619
+        },
+        {
+          "id": "msg_1767585578965_rn509ib",
+          "role": "assistant",
+          "content": "已为您生成动效，可以在右侧预览区查看。您可以继续描述来调整动效，或使用参数面板进行微调。",
+          "timestamp": 1767585578965,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767585633067_sxxaqhs",
+          "role": "user",
+          "content": "每个字符的朝向，应该是圣诞树边缘轮廓的法线方向",
+          "timestamp": 1767585633067
+        },
+        {
+          "id": "msg_1767585717805_q0wg9le",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767585717805,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767585811937_gl3bmqm",
+          "role": "user",
+          "content": "整体形状改成一个铃铛形状，字符串内容改为“铃儿响叮当”",
+          "timestamp": 1767585811937
+        },
+        {
+          "id": "msg_1767585872563_tqgrgnl",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767585872563,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767585940080_dldmw26",
+          "role": "user",
+          "content": "形状改为铃铛的形状，并且字间距再大20%",
+          "timestamp": 1767585940080
+        },
+        {
+          "id": "msg_1767585977506_p82ia0i",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767585977506,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767594274619_d5nz1pz",
+          "role": "user",
+          "content": "路径不再是固定的，我会上传一张图片（存在透明通道），你检测这个图片的外轮廓（通过透明度检测），然后将字幕按照该图片的外轮廓运动",
+          "timestamp": 1767594274619
+        },
+        {
+          "id": "msg_1767594309430_1qaalsz",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767594309430,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767594370562_gjcmwk4",
+          "role": "user",
+          "content": "将配色改为白色文字 + 暖黄色辉光",
+          "timestamp": 1767594370562
+        },
+        {
+          "id": "msg_1767594391034_9my7ebz",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767594391034,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767594523194_rt47zro",
+          "role": "user",
+          "content": "字符的正方向，改为沿法线方向朝外。",
+          "timestamp": 1767594523194
+        },
+        {
+          "id": "msg_1767594562027_zpwey76",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767594562027,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767596250158_t8whk6y",
+          "role": "user",
+          "content": "识别出来的轮廓目前不够平滑，会导致字符在移动的过程中角度发生突变（因为法线方向突变了），尝试优化下。字符的正方向，仍维持为沿法线方向朝外。",
+          "timestamp": 1767596250158
+        },
+        {
+          "id": "msg_1767596287069_zhelfeh",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767596287069,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767596305988_8a4iucd",
+          "role": "user",
+          "content": "字符的正方向，改为沿法线方向朝外。",
+          "timestamp": 1767596305988
+        },
+        {
+          "id": "msg_1767596352644_y3ot9rv",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767596352644,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767596370971_o98b2sw",
+          "role": "user",
+          "content": "字符的正方向，改为沿法线方向朝外。头朝外",
+          "timestamp": 1767596370971
+        },
+        {
+          "id": "msg_1767596418934_wb6gtje",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767596418934,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767596733442_qlyjszt",
+          "role": "user",
+          "content": "字符串“铃儿响叮当”要出现整数次，你可以通过实时计算缩放来做到这个效果。每个“铃儿响叮当”必须完整可见",
+          "timestamp": 1767596733442
+        },
+        {
+          "id": "msg_1767596759935_1e2b9i1",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767596759935,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767597119025_gjmu0hp",
+          "role": "user",
+          "content": "在9:16的画布比例下，当画布canvas的宽高从720p变为1080p时，效果会发生变化（字变小），修复下。内部数值计算最好使用归一化的值或者以一个统一的坐标系作为参考。",
+          "timestamp": 1767597119025
+        },
+        {
+          "id": "msg_1767597154805_tbdayd8",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767597154806,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767597590443_1vzdhfi",
+          "role": "user",
+          "content": "把字符串改为\"Merry Christmas\"",
+          "timestamp": 1767597590443
+        },
+        {
+          "id": "msg_1767597621251_kp0ig28",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767597621251,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767597725995_w44q17p",
+          "role": "user",
+          "content": "辉光效果再强一点，并且改为轮廓上半部分辉光颜色和下半部分辉光颜色不同，中间是渐变的效果",
+          "timestamp": 1767597725995
+        },
+        {
+          "id": "msg_1767597752096_j84pdqf",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767597752096,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767599868496_eqs47s8",
+          "role": "user",
+          "content": "移除掉字符本身的随机抖动，仅保留跟随路径移动的逻辑",
+          "timestamp": 1767599868496
+        },
+        {
+          "id": "msg_1767599907036_wiijbog",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767599907036,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767600054007_u0delyj",
+          "role": "user",
+          "content": "需要你补算一下kerning的offset，目前英文字间距明显有问题。比如“Christmas”，rist之间的间距太大，mas是聚合在一起的",
+          "timestamp": 1767600054007
+        },
+        {
+          "id": "msg_1767600146733_zj43vi3",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767600146733,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767601166260_mvzaj6o",
+          "role": "user",
+          "content": "目前extractSmoothOutline生成的仍然是折线点位，它的法线方向是离散的，而不是连续的，在点位附近会突变，导致字符方向不够连续。  或者使用线性插值等方法对折线点进行平滑处理，减少突变现象。",
+          "timestamp": 1767601166260
+        },
+        {
+          "id": "msg_1767601200630_toqr206",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767601200630,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767672500753_cqcnu1b",
+          "role": "user",
+          "content": "黑边的真正原因： 看回原代码，黑边很可能是因为： interpolateColor 返回的 rgb() 格式在作为 shadowColor 时，Canvas 可能默认给了不透明度，导致多层叠加时颜色变暗 高性能解决方案：  // 确保发光颜色带透明度 function interpolateColor(color1, color2, factor) {   const c1 = hexToRgb(color1);   const c2 = hexToRgb(color2);   const r = Math.round(c1.r + factor * (c2.r - c1.r));   const g = Math.round(c1.g + factor * (c2.g - c1.g));   const b = Math.round(c1.b + factor * (c2.b - c1.b));   return `rgba(${r}, ${g}, ${b}, 0.8)`; // 关键：加透明度！ }  // 渲染部分改为： ctx.save(); ctx.translate(pos.x, pos.y); ctx.rotate(tangentAngle);  // 发光层 - 不改变 compositeOperation ctx.shadowBlur = relGlow; ctx.shadowColor = currentCharGlowColor; // 现在是 rgba 格式 ctx.fillStyle = currentCharGlowColor;  // 只循环一次或减少循环次数 ctx.fillText(char, 0, 0);  // 本体文字 ctx.shadowBlur = 0; ctx.fillStyle = textColor; ctx.fillText(char, 0, 0);  ctx.restore(); 关键修复： 让 interpolateColor 返回 rgba() 格式，透明度约 0.6-0.8 减少或移除发光层的循环（glowStrength 循环） 不使用 globalCompositeOperation 黑边应该是因为 rgb() 格式的 shadowColor 被当作完全不透明处理了。用 rgba() + 适当透明度就能解决，而且不会牺牲性能。",
+          "timestamp": 1767672500753
+        },
+        {
+          "id": "msg_1767672524833_1nb6h5j",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767672524833,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767672822993_yapc7f4",
+          "role": "user",
+          "content": "终极性能方案（推荐）：  ctx.save(); ctx.translate(pos.x, pos.y); ctx.rotate(tangentAngle);  // 计算调整后的模糊强度，避免循环 const adjustedBlur = relGlow * (1 + Math.log(glowStrength + 1) * 0.5);  ctx.shadowBlur = adjustedBlur; ctx.shadowColor = currentCharGlowColor; ctx.fillStyle = currentCharGlowColor; ctx.fillText(char, 0, 0); // 只绘制一次！  // 本体文字 ctx.shadowBlur = 0; ctx.fillStyle = textColor; ctx.fillText(char, 0, 0);  ctx.restore(); 你可以试试最后这个方案，通过数学公式（对数或开方）来模拟强度，而不是暴力循环叠加。这样既能避免黑边，性能也会好很多！",
+          "timestamp": 1767672822993
+        },
+        {
+          "id": "msg_1767672875058_93skfvy",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767672875058,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767672959181_72d5x57",
+          "role": "user",
+          "content": "颜色再重一点",
+          "timestamp": 1767672959181
+        },
+        {
+          "id": "msg_1767673026774_upbuooc",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767673026774,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767680104090_wt93xcf",
+          "role": "user",
+          "content": "颜色再重40%",
+          "timestamp": 1767680104090
+        },
+        {
+          "id": "msg_1767680175552_wqkzwbw",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767680175552,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        },
+        {
+          "id": "msg_1767680323578_8kbhj6o",
+          "role": "user",
+          "content": "将字符串改为用户可输入的参数",
+          "timestamp": 1767680323578
+        },
+        {
+          "id": "msg_1767680373234_15rnb8n",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767680373234,
+          "motionSnapshot": "motion_1767585578941_za123ob"
+        }
+      ],
+      "motion": {
+        "id": "motion_1767585578941_za123ob",
+        "renderMode": "canvas",
+        "duration": 10000,
+        "width": 640,
+        "height": 640,
+        "backgroundColor": "#0a1a12",
+        "elements": [
+          {
+            "id": "outline_source",
+            "type": "image",
+            "properties": {
+              "x": 320,
+              "y": 320,
+              "width": 100,
+              "height": 100,
+              "opacity": 1,
+              "rotation": 0,
+              "fill": "#3b82f6"
+            },
+            "animation": {
+              "type": "keyframe",
+              "duration": 3000,
+              "delay": 0,
+              "easing": "ease-in-out",
+              "loop": true
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "id": "textString",
+            "name": "显示文字",
+            "type": "string",
+            "path": "params.textString",
+            "stringValue": "BILIBILI干杯",
+            "placeholder": "请输入要显示的文字"
+          },
+          {
+            "id": "outlineImage",
+            "name": "轮廓图片 (带透明通道)",
+            "type": "image",
+            "path": "params.outlineImage",
+            "imageValue": "blob:http://localhost:5173/c786920e-0e05-4226-a9fe-b532192fd5b9",
+            "placeholderImage": "__PLACEHOLDER__"
+          },
+          {
+            "id": "textColor",
+            "name": "文字颜色",
+            "type": "color",
+            "path": "params.textColor",
+            "colorValue": "#fff9e0"
+          },
+          {
+            "id": "glowColorTop",
+            "name": "辉光颜色(顶部)",
+            "type": "color",
+            "path": "params.glowColorTop",
+            "colorValue": "#ff0000"
+          },
+          {
+            "id": "glowColorBottom",
+            "name": "辉光颜色(底部)",
+            "type": "color",
+            "path": "params.glowColorBottom",
+            "colorValue": "#349433"
+          },
+          {
+            "id": "imageScale",
+            "name": "轮廓缩放",
+            "type": "number",
+            "path": "params.imageScale",
+            "min": 0.1,
+            "max": 2,
+            "step": 0.05,
+            "value": 1.3
+          },
+          {
+            "id": "alphaThreshold",
+            "name": "透明度阈值",
+            "type": "number",
+            "path": "params.alphaThreshold",
+            "min": 1,
+            "max": 254,
+            "step": 1,
+            "value": 9
+          },
+          {
+            "id": "smoothness",
+            "name": "轮廓平滑度",
+            "type": "number",
+            "path": "params.smoothness",
+            "min": 1,
+            "max": 50,
+            "step": 1,
+            "value": 7
+          },
+          {
+            "id": "flowSpeed",
+            "name": "流动速度",
+            "type": "number",
+            "path": "params.flowSpeed",
+            "min": 0.1,
+            "max": 5,
+            "step": 0.1,
+            "value": 0.8
+          },
+          {
+            "id": "fontSize",
+            "name": "字符大小",
+            "type": "number",
+            "path": "params.fontSize",
+            "min": 10,
+            "max": 60,
+            "step": 1,
+            "value": 30
+          },
+          {
+            "id": "glowAmount",
+            "name": "辉光范围",
+            "type": "number",
+            "path": "params.glowAmount",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "value": 15
+          },
+          {
+            "id": "glowOpacity",
+            "name": "辉光透明度",
+            "type": "number",
+            "path": "params.glowOpacity",
+            "min": 0,
+            "max": 1,
+            "step": 0.05,
+            "value": 1
+          },
+          {
+            "id": "glowStrength",
+            "name": "辉光强度模拟",
+            "type": "number",
+            "path": "params.glowStrength",
+            "min": 1,
+            "max": 10,
+            "step": 0.5,
+            "value": 9
+          }
+        ],
+        "code": "const offscreenCanvas = document.createElement('canvas');\nconst octx = offscreenCanvas.getContext('2d', { willReadFrequently: true });\n\nfunction hexToRgb(hex) {\n  const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);\n  return result ? {\n    r: parseInt(result[1], 16),\n    g: parseInt(result[2], 16),\n    b: parseInt(result[3], 16)\n  } : { r: 0, g: 0, b: 0 };\n}\n\nfunction interpolateColor(color1, color2, factor, opacity = 0.8) {\n  const c1 = hexToRgb(color1);\n  const c2 = hexToRgb(color2);\n  const r = Math.round(c1.r + factor * (c2.r - c1.r));\n  const g = Math.round(c1.g + factor * (c2.g - c1.g));\n  const b = Math.round(c1.b + factor * (c2.b - c1.b));\n  return `rgba(${r}, ${g}, ${b}, ${opacity})`;\n}\n\nfunction extractSmoothOutline(img, threshold, scaleFactor, smoothness, canvas) {\n  const scanRes = 720;\n  const offRes = 400;\n  offscreenCanvas.width = offRes;\n  offscreenCanvas.height = offRes;\n  \n  octx.clearRect(0, 0, offRes, offRes);\n  octx.drawImage(img, 0, 0, offRes, offRes);\n  const imgData = octx.getImageData(0, 0, offRes, offRes).data;\n\n  let sumX = 0, sumY = 0, count = 0;\n  for (let y = 0; y < offRes; y++) {\n    for (let x = 0; x < offRes; x++) {\n      if (imgData[(y * offRes + x) * 4 + 3] > threshold) {\n        sumX += x; sumY += y; count++;\n      }\n    }\n  }\n  const midX = count > 0 ? sumX / count : offRes / 2;\n  const midY = count > 0 ? sumY / count : offRes / 2;\n\n  let rawPoints = [];\n  for (let i = 0; i < scanRes; i++) {\n    const angle = (i / scanRes) * Math.PI * 2;\n    const dx = Math.cos(angle);\n    const dy = Math.sin(angle);\n    let lastR = 0;\n    for (let r = offRes * 0.7; r > 0; r -= 1) {\n      const px = Math.floor(midX + dx * r);\n      const py = Math.floor(midY + dy * r);\n      if (px >= 0 && px < offRes && py >= 0 && py < offRes) {\n        if (imgData[(py * offRes + px) * 4 + 3] > threshold) {\n          lastR = r;\n          break;\n        }\n      }\n    }\n    rawPoints.push({ x: midX + dx * lastR, y: midY + dy * lastR });\n  }\n\n  let smoothedPoints = [];\n  const win = Math.max(1, Math.floor(smoothness));\n  const minDim = Math.min(canvas.width, canvas.height);\n  const visualScale = minDim * 0.8 * scaleFactor / offRes;\n  \n  for (let i = 0; i < scanRes; i++) {\n    let sx = 0, sy = 0, weightSum = 0;\n    for (let j = -win; j <= win; j++) {\n      const idx = (i + j + scanRes) % scanRes;\n      const weight = 1 - Math.abs(j) / (win + 1);\n      sx += rawPoints[idx].x * weight;\n      sy += rawPoints[idx].y * weight;\n      weightSum += weight;\n    }\n    smoothedPoints.push({\n      x: canvas.width / 2 + (sx / weightSum - offRes / 2) * visualScale,\n      y: canvas.height / 2 + (sy / weightSum - offRes / 2) * visualScale\n    });\n  }\n  \n  return { points: smoothedPoints };\n}\n\nfunction render(ctx, time, params, canvas) {\n  const { width, height } = canvas;\n  const minDim = Math.min(width, height);\n  const scaleRef = minDim / 640;\n\n  const { textString, outlineImage, flowSpeed, fontSize, glowAmount, glowStrength, glowOpacity, imageScale, alphaThreshold, smoothness, textColor, glowColorTop, glowColorBottom } = params;\n  \n  const relFontSize = fontSize * scaleRef;\n  const relGlow = glowAmount * scaleRef;\n  const relSpeed = flowSpeed * scaleRef;\n\n  let baseText = textString || \"Merry Christmas\";\n  // 如果用户没有输入空格，自动补一个空格以便循环连接\n  if (baseText.length > 0 && !baseText.endsWith(' ')) {\n    baseText += \" \";\n  }\n  if (baseText.length === 0) baseText = \"Merry Christmas \";\n  \n  let outlineData = { points: [] };\n  if (outlineImage instanceof HTMLImageElement && outlineImage.complete) {\n    outlineData = extractSmoothOutline(outlineImage, alphaThreshold, imageScale, smoothness, canvas);\n  } else {\n    const radius = minDim * 0.3 * imageScale;\n    const res = 720;\n    for (let i = 0; i < res; i++) {\n      const a = (i / res) * Math.PI * 2;\n      outlineData.points.push({ x: width/2 + Math.cos(a)*radius, y: height/2 + Math.sin(a)*radius });\n    }\n  }\n\n  const points = outlineData.points;\n  if (points.length < 10) return;\n\n  const pathData = [];\n  let totalLength = 0;\n  for (let i = 0; i < points.length; i++) {\n    const p = points[i];\n    const nextP = points[(i + 1) % points.length];\n    const dist = Math.sqrt((nextP.x - p.x)**2 + (nextP.y - p.y)**2);\n    pathData.push({ x: p.x, y: p.y, cumulative: totalLength, length: dist });\n    totalLength += dist;\n  }\n\n  const getPointAtDist = (d) => {\n    let target = ((d % totalLength) + totalLength) % totalLength;\n    let low = 0, high = pathData.length - 1, idx = 0;\n    while (low <= high) {\n      let mid = (low + high) >> 1;\n      if (pathData[mid].cumulative <= target) {\n        idx = mid;\n        low = mid + 1;\n      } else {\n        high = mid - 1;\n      }\n    }\n    const seg = pathData[idx];\n    const nextSeg = pathData[(idx + 1) % pathData.length];\n    const ratio = (target - seg.cumulative) / (seg.length || 1);\n    return {\n      x: seg.x + (nextSeg.x - seg.x) * ratio,\n      y: seg.y + (nextSeg.y - seg.y) * ratio\n    };\n  };\n\n  ctx.font = `bold ${relFontSize}px sans-serif`;\n  ctx.textAlign = 'center';\n  ctx.textBaseline = 'middle';\n\n  const charWidths = [];\n  let totalTextWidth = 0;\n  for (let i = 0; i < baseText.length; i++) {\n    const w = ctx.measureText(baseText[i]).width;\n    charWidths.push(w);\n    totalTextWidth += w;\n  }\n\n  const minSpacing = relFontSize * 0.05;\n  const singleLoopMinLen = totalTextWidth + (baseText.length * minSpacing);\n  const numReps = Math.max(1, Math.round(totalLength / singleLoopMinLen));\n  const totalGapSpace = totalLength - (numReps * totalTextWidth);\n  const finalSpacing = totalGapSpace / (numReps * baseText.length);\n  const charCount = numReps * baseText.length;\n\n  const charOffsets = new Float32Array(charCount);\n  let accumulatedDist = 0;\n  for (let i = 0; i < charCount; i++) {\n    const charIdx = i % baseText.length;\n    const w = charWidths[charIdx];\n    charOffsets[i] = accumulatedDist + w / 2;\n    accumulatedDist += w + finalSpacing;\n  }\n\n  const moveOffset = (time * 0.08 * relSpeed) % totalLength;\n  \n  let minY = Infinity, maxY = -Infinity;\n  points.forEach(p => {\n    if (p.y < minY) minY = p.y;\n    if (p.y > maxY) maxY = p.y;\n  });\n  const yRange = (maxY - minY) || 1;\n\n  for (let i = 0; i < charCount; i++) {\n    const baseDist = charOffsets[i];\n    const targetDist = (baseDist + moveOffset) % totalLength;\n    const pos = getPointAtDist(targetDist);\n    \n    const sampleStep = relFontSize * 0.2;\n    const pPrev = getPointAtDist(targetDist - sampleStep);\n    const pNext = getPointAtDist(targetDist + sampleStep);\n    const tangentAngle = Math.atan2(pNext.y - pPrev.y, pNext.x - pPrev.x);\n\n    const gradientFactor = Math.max(0, Math.min(1, (pos.y - minY) / yRange));\n    const currentCharGlowColor = interpolateColor(glowColorTop, glowColorBottom, gradientFactor, glowOpacity);\n    const char = baseText[i % baseText.length];\n\n    ctx.save();\n    ctx.translate(pos.x, pos.y);\n    ctx.rotate(tangentAngle);\n    \n    const adjustedBlur = relGlow * (1 + Math.log(glowStrength + 1) * 0.5);\n    \n    ctx.shadowBlur = adjustedBlur;\n    ctx.shadowColor = currentCharGlowColor;\n    ctx.fillStyle = currentCharGlowColor;\n    \n    // 第一层：广域辉光\n    ctx.fillText(char, 0, 0);\n    \n    // 第二层：核心加重\n    ctx.shadowBlur = adjustedBlur * 0.6;\n    ctx.fillText(char, 0, 0);\n\n    // 第三层：高亮核心\n    ctx.shadowBlur = adjustedBlur * 0.25;\n    ctx.fillText(char, 0, 0);\n    \n    // 绘制本体文字层\n    ctx.shadowBlur = 0;\n    ctx.fillStyle = textColor;\n    ctx.fillText(char, 0, 0);\n    ctx.restore();\n  }\n\n  const snowRandom = window.__motionUtils.createRandomSequence(42);\n  ctx.shadowBlur = 0;\n  ctx.fillStyle = \"rgba(255, 255, 255, 0.15)\";\n  for (let j = 0; j < 50; j++) {\n    const sx = snowRandom() * width;\n    const sy = ((snowRandom() * height) + (time * 0.03 * scaleRef)) % height;\n    const sSize = snowRandom() * 2.5 * scaleRef;\n    ctx.beginPath();\n    ctx.arc(sx, sy, sSize, 0, Math.PI * 2);\n    ctx.fill();\n  }\n}\n\nwindow.__motionRender = render;",
+        "createdAt": 1767585578941,
+        "updatedAt": 1768546160577
+      },
+      "createdAt": 1767680294376,
+      "updatedAt": 1767680294376
+    }
+  },
+  {
+    "version": "0.1.0",
+    "exportedAt": 1768550485646,
+    "conversation": {
+      "id": "ea61d0d6-c5f1-4210-9976-49ba32cedd44",
+      "title": "商业化烟花彩蛋",
+      "messages": [
+        {
+          "id": "msg_1768159787017_yevooiw",
+          "role": "user",
+          "content": "你需要生成一个3s的动效 背景纯透明，你只负责绘制前景动效效果。 阶段一：0-1s：一个烟花形状的图片（用户提供）从屏幕下方1/3位置上升到屏幕上方1/3位置，要求运动轨迹缓入缓出。 阶段二：1-2s：用户提供三张带透明通道的图片，粒子填满图片中的不透明部分。每张图片从小放大，粒子逐渐向外放射发散，原形状仍清晰可见。粒子需要有少许辉光效果。 阶段三：2-3s：阶段二中三张图片粒子逐渐消散，每张图片的中心爆炸生成烟花效果，要求爆炸粒子尾焰效果明显，粒子前端有很明显的发亮辉光效果。  附件里是三个阶段的效果图，你可以进行参考，配色方案也使用参考图中的颜色。  优先保证效果，其次需要优化下性能，要求能够正常预览播放",
+          "timestamp": 1768159787024,
+          "attachmentIds": [
+            "temp_1768159781391_e20l34e",
+            "temp_1768159781398_qvqh0od",
+            "temp_1768159781403_kvgm37u"
+          ]
+        },
+        {
+          "id": "msg_1768159797880_yd9fdj8",
+          "role": "assistant",
+          "content": "为了更好地理解您的需求，我需要确认几个问题：",
+          "timestamp": 1768159797880
+        },
+        {
+          "id": "msg_1768159849276_jb8q1wl",
+          "role": "user",
+          "content": "阶段二中三张图片的出现方式是怎样的？\n→ 按顺序，在不同位置依次出现，间隔0.1秒",
+          "timestamp": 1768159849276
+        },
+        {
+          "id": "msg_1768159857831_ibrbsde",
+          "role": "user",
+          "content": "阶段三的爆炸消散与烟花生成的关系是？\n→ 原形状粒子逐渐淡化，同时中心点生成新的烟花粒子",
+          "timestamp": 1768159857831
+        },
+        {
+          "id": "msg_1768159877427_8wqlh26",
+          "role": "user",
+          "content": "您对动画的性能优化倾向于哪种处理方式？\n→ 减少粒子总数，保持每个粒子的细节和辉光",
+          "timestamp": 1768159877427
+        },
+        {
+          "id": "msg_1768159883857_f2rt5iq",
+          "role": "user",
+          "content": "阶段一的“烟花形状图片”在上升过程中是否有自发光或旋转效果？\n→ 上升时伴随轻微的左右晃动或旋转",
+          "timestamp": 1768159883857
+        },
+        {
+          "id": "msg_1768159903825_0g3d8s9",
+          "role": "assistant",
+          "content": "已为您生成动效，可以在右侧预览区查看。您可以继续描述来调整动效，或使用参数面板进行微调。",
+          "timestamp": 1768159903825,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768160074661_21a7q7u",
+          "role": "user",
+          "content": "二阶段粒子加一些辉光，图片出现间隔调整到0.2秒。粒子再多一些，保证粒子扩散时仍能看清形状。阶段三的烟花彻底重做，优化下烟花效果，要求跟这幅图接近90%的相似度",
+          "timestamp": 1768160074668,
+          "attachmentIds": [
+            "temp_1768160074241_53nah1b"
+          ]
+        },
+        {
+          "id": "msg_1768160093083_6rxkska",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768160093083,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768160251739_bgny9m8",
+          "role": "user",
+          "content": "阶段二粒子扩散的时候不要添加随机扩散，整体向外扩散，并且粒子带一点尾焰效果",
+          "timestamp": 1768160251739
+        },
+        {
+          "id": "msg_1768160266541_hvwqp71",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768160266541,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768160439249_10m0fq6",
+          "role": "user",
+          "content": "在不改变效果的前提下，性能优化下",
+          "timestamp": 1768160439249
+        },
+        {
+          "id": "msg_1768160453528_xfcz9fu",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768160453528,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768160561741_dpwxi6k",
+          "role": "user",
+          "content": "阶段二粒子扩散的时候维持整体形状，是整体一起扩大。并且粒子添加辉光效果",
+          "timestamp": 1768160561741
+        },
+        {
+          "id": "msg_1768160579061_hvja1c3",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768160579061,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768160701504_db7d6m6",
+          "role": "user",
+          "content": "阶段三的爆炸，彻底重写。要求每张图片的中心爆炸生成烟花效果，要求爆炸粒子尾焰效果明显，粒子前端有很明显的发亮辉光效果。要求模拟最真实的烟花爆炸效果，符合物理学规律，同时保证预览状态下播放不卡顿。烟花爆炸时产生多彩的光点，光点逐渐消散，光点要有光晕和尾迹效果。",
+          "timestamp": 1768160701504
+        },
+        {
+          "id": "msg_1768160718765_40l1tys",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768160718765,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768160816131_dh5oici",
+          "role": "user",
+          "content": "阶段三烟花爆炸的时候，每个烟花粒子爆开不要是一条直线，而是一个类似抛物线向下垂的效果",
+          "timestamp": 1768160816131
+        },
+        {
+          "id": "msg_1768160834744_eef22fs",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768160834744,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768160908005_cz4idq7",
+          "role": "user",
+          "content": "阶段三烟花尾迹再长50%，尾迹不是直的，而是类似抛物线的效果",
+          "timestamp": 1768160908005
+        },
+        {
+          "id": "msg_1768160926090_472i4qt",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768160926090,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768161033969_rqgrlyt",
+          "role": "user",
+          "content": "阶段三性能优化下，但是效果要和目前一模一样",
+          "timestamp": 1768161033969
+        },
+        {
+          "id": "msg_1768161052782_wublg46",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768161052782,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768161183640_xtia8n4",
+          "role": "user",
+          "content": "阶段三的烟花爆炸，加一些上抛的爆炸粒子",
+          "timestamp": 1768161183640
+        },
+        {
+          "id": "msg_1768161202476_gscxya8",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768161202476,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768161260380_lvdu3qc",
+          "role": "user",
+          "content": "阶段二的尾焰长度减少50%",
+          "timestamp": 1768161260380
+        },
+        {
+          "id": "msg_1768161281223_s7et9qj",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768161281223,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768161464719_mmjnwmv",
+          "role": "user",
+          "content": "阶段二到阶段三的过渡在自然一点，阶段二在末尾需要有个逐渐消失的效果",
+          "timestamp": 1768161464719
+        },
+        {
+          "id": "msg_1768161487887_jder41r",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768161487887,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768161597552_0ag1h14",
+          "role": "user",
+          "content": "阶段三的爆炸粒子再加50%",
+          "timestamp": 1768161597552
+        },
+        {
+          "id": "msg_1768161620311_nmqpt4r",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768161620311,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768161797431_v3yduw4",
+          "role": "user",
+          "content": "阶段一移除掉左右抖动的效果，仅保留上升的的运动轨迹，要求移动速度符合缓入缓出。并且图片大小再放大100%",
+          "timestamp": 1768161797431
+        },
+        {
+          "id": "msg_1768161827652_addud4g",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768161827652,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768161884429_b20xh6t",
+          "role": "user",
+          "content": "阶段一上升到画布中心位置即可，要求运动先快后慢",
+          "timestamp": 1768161884429
+        },
+        {
+          "id": "msg_1768161914346_cxxejd7",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768161914346,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768161999244_k4wqs1v",
+          "role": "user",
+          "content": "阶段一的烟花筒在末尾也加一个渐隐的效果",
+          "timestamp": 1768161999244
+        },
+        {
+          "id": "msg_1768162029294_hk4axvc",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768162029294,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768162098932_os42tuq",
+          "role": "user",
+          "content": "发挥你的想象力，在整体逻辑不变的前提下，将阶段一，阶段二，阶段三的过渡都变得更平滑，更有创意一些",
+          "timestamp": 1768162098932
+        },
+        {
+          "id": "msg_1768162140200_4n75h7j",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768162140200,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768162418469_3482rag",
+          "role": "user",
+          "content": "阶段一改为烟花筒图片从画布下方1/3处移动到画布中央，烟花筒图片在阶段一开始是渐显效果，阶段一最后是渐隐效果",
+          "timestamp": 1768162418469
+        },
+        {
+          "id": "msg_1768162450756_2sbyx9e",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768162450756,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768162476841_zlbwik8",
+          "role": "user",
+          "content": "阶段一最后的烟花筒图片，仅保留渐隐效果，不要加形变",
+          "timestamp": 1768162476841
+        },
+        {
+          "id": "msg_1768162503958_x7ksla5",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768162503958,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768163569638_5h943zd",
+          "role": "user",
+          "content": "阶段二，当前动画效果有个bug，即播放到最后，粒子图片仍然没有完整显示，还是在动画过程中，优化下，阶段二总时长可以改为1.2秒。",
+          "timestamp": 1768163569638
+        },
+        {
+          "id": "msg_1768163609076_yyj36mc",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768163609076,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768163737659_1nk24c5",
+          "role": "user",
+          "content": "阶段二的三个粒子图片需要依次出现，但是需要同时消失。阶段三的三个烟花同时起爆",
+          "timestamp": 1768163737659
+        },
+        {
+          "id": "msg_1768163769401_yes6vwt",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768163769401,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768163809631_wajyuvh",
+          "role": "user",
+          "content": "阶段三烟花起爆的效果再自然一点",
+          "timestamp": 1768163809631
+        },
+        {
+          "id": "msg_1768163832597_jto7rk9",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768163832597,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768163906880_piak2qg",
+          "role": "user",
+          "content": "阶段二的粒子辉光效果再大50%，并且需要有尾焰效果",
+          "timestamp": 1768163906880
+        },
+        {
+          "id": "msg_1768163938482_3gwb755",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768163938482,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768163991606_blrjgqj",
+          "role": "user",
+          "content": "检测到 Math.random(): Math.random() 这可能导致动画重播时效果不一致",
+          "timestamp": 1768163991606
+        },
+        {
+          "id": "msg_1768164023444_7rus75i",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768164023444,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768164116297_jzcvn49",
+          "role": "user",
+          "content": "阶段二修改下三个图片的位置，以画布左上角为原点，x轴向右为正，y轴向下为正，归一化坐标系[0, 1]，三个图片位置分别为： 图片1：(0.7, 0.3) 图片2：(0.3, 0.5) 图片3：(0.7, 0.7)",
+          "timestamp": 1768164116297
+        },
+        {
+          "id": "msg_1768164140892_ajp6d82",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768164140892,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768164826754_p5yv0ps",
+          "role": "user",
+          "content": "所有参数均使用归一化参数，保证画布无论是1080P还是4K的效果都一致",
+          "timestamp": 1768164826754
+        },
+        {
+          "id": "msg_1768164857728_t3s109h",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768164857728,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768164919688_tw9y78z",
+          "role": "user",
+          "content": "粒子大小变大50%",
+          "timestamp": 1768164919688
+        },
+        {
+          "id": "msg_1768164944211_z2ihh4r",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768164944211,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768165281227_jprauej",
+          "role": "user",
+          "content": "在保持效果完全不变的前提下，阶段三烟花爆炸的渲染逻辑优化下性能",
+          "timestamp": 1768165281227
+        },
+        {
+          "id": "msg_1768165304563_u1tuect",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768165304563,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768165747493_71dx3mz",
+          "role": "user",
+          "content": "阶段三烟花粒子的辉光效果加强50%，尾迹需要有渐变的效果",
+          "timestamp": 1768165747493
+        },
+        {
+          "id": "msg_1768165770803_q6oxtzv",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768165770803,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768165831900_641dxqa",
+          "role": "user",
+          "content": "阶段三的烟花尾焰有点黑色效果，优化下，渐变应该是透明度的渐变",
+          "timestamp": 1768165831900
+        },
+        {
+          "id": "msg_1768165855088_nov3uzd",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768165855088,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768189702008_u1ic8j2",
+          "role": "user",
+          "content": "动画的 3 个阶段分的太开了，显得动画有点僵硬。在动画上一个阶段还未消失时，下一个阶段就开始进入了，这样的过渡更自然。",
+          "timestamp": 1768189702008
+        },
+        {
+          "id": "msg_1768189726941_j6a9us8",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768189726941,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768189740819_rram8qx",
+          "role": "user",
+          "content": "二阶段的LOGO粒子效果出现，去掉旋转，改为放射式的出现，会跟下一阶段烟花绽放的效果，衔接的更自然",
+          "timestamp": 1768189740819
+        },
+        {
+          "id": "msg_1768189766835_mnh7jfp",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768189766835,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768189817381_bqqg7e0",
+          "role": "user",
+          "content": "图片1顺时针旋转20度，图片2逆时针旋转20度，图片3顺时针旋转20度",
+          "timestamp": 1768189817381
+        },
+        {
+          "id": "msg_1768189840995_mhhq421",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768189840995,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768189922508_713gaae",
+          "role": "user",
+          "content": "图片1的左下部分显示时被截断了，修复下",
+          "timestamp": 1768189922508
+        },
+        {
+          "id": "msg_1768189947049_3pymbqq",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768189947049,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768190540315_l90a6g5",
+          "role": "user",
+          "content": "阶段二和阶段三的粒子中心有点太亮了，优化下",
+          "timestamp": 1768190540315
+        },
+        {
+          "id": "msg_1768190564862_yv4zvjj",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768190564862,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768190642149_ze67hmd",
+          "role": "user",
+          "content": "粒子还是太亮了，将粒子发亮区域缩小20%",
+          "timestamp": 1768190642149
+        },
+        {
+          "id": "msg_1768190668579_wltasox",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768190668579,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768190825270_yhf78ml",
+          "role": "user",
+          "content": "重命名下所有参数，分别加上阶段一阶段二阶段三的前缀",
+          "timestamp": 1768190825270
+        },
+        {
+          "id": "msg_1768190849573_etb5u2z",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768190849573,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768191032627_byzy0j5",
+          "role": "user",
+          "content": "阶段三效果优化下，当重力下坠强度参数为0时，烟花爆炸粒子不受重力影响，仅受空气阻力影响的效果，向四周散开",
+          "timestamp": 1768191032627
+        },
+        {
+          "id": "msg_1768191059703_ii3o7va",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768191059703,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768200335407_lo54sm7",
+          "role": "user",
+          "content": "阶段三的烟花粒子整体有点太实了，给粒子增加外发光的效果",
+          "timestamp": 1768200335407
+        },
+        {
+          "id": "msg_1768200361719_9a9ndsi",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768200361719,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768200403197_q80jxx8",
+          "role": "user",
+          "content": "给阶段三的粒子加一些辉光的效果",
+          "timestamp": 1768200403197
+        },
+        {
+          "id": "msg_1768200432833_26s5314",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768200432833,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768200473073_38lauew",
+          "role": "user",
+          "content": "优化下阶段三的辉光性能",
+          "timestamp": 1768200473073
+        },
+        {
+          "id": "msg_1768200498232_6aeoopa",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768200498232,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768200575685_dm2pt5r",
+          "role": "user",
+          "content": "辉光颜色发黑，优化下",
+          "timestamp": 1768200575685
+        },
+        {
+          "id": "msg_1768200603545_6dtq1gg",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768200603545,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768201881409_16ennpz",
+          "role": "user",
+          "content": "在阶段二末尾，图片粒子新增一个自然的放大消散效果，扩散幅度可调。",
+          "timestamp": 1768201881409
+        },
+        {
+          "id": "msg_1768201910596_y8jwhmq",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768201910596,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768202474702_nmycs5y",
+          "role": "user",
+          "content": "优化下阶段二的图片粒子，粒子新增辉光效果，要求该辉光效果不影响性能，需要极致优化。",
+          "timestamp": 1768202474702
+        },
+        {
+          "id": "msg_1768202505744_k1o3bme",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768202505744,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768203466074_7xm9mkr",
+          "role": "user",
+          "content": "阶段一做一个开关，当取消选择该开关时，阶段一不展示，直接从阶段二的startTime开始播放，动效总时长需要重新计算",
+          "timestamp": 1768203466074
+        },
+        {
+          "id": "msg_1768203501388_5kfgbt2",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768203501388,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768203667824_lfjudqc",
+          "role": "user",
+          "content": "阶段一的烟花筒，阶段二的图片1\\2\\3，我上传竖状图片，会被压扁，修复下。阶段二的每个图片添加一个缩放参数可调整",
+          "timestamp": 1768203667824
+        },
+        {
+          "id": "msg_1768203699577_0e4zy2m",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768203699577,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768203811070_haxmqt3",
+          "role": "user",
+          "content": "当阶段二的图形被放大时，很明显“形状粒子数量”这个参数会有一些别扭，大图粒子稀疏，小图粒子稠密。所以建议使用形状粒子密度的参数进行替代",
+          "timestamp": 1768203811070
+        },
+        {
+          "id": "msg_1768203844717_ey5uz9l",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768203844717,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768203953182_9v9p0m3",
+          "role": "user",
+          "content": "“形状粒子密度”参数仍未解决大图粒子稀疏，小图粒子稠密的问题",
+          "timestamp": 1768203953182
+        },
+        {
+          "id": "msg_1768203985058_fozwil0",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768203985058,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768204038608_d0aaxk1",
+          "role": "user",
+          "content": "形状粒子密度参数上限提高到20",
+          "timestamp": 1768204038608
+        },
+        {
+          "id": "msg_1768204070564_duwnxkj",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768204070564,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768204492769_xldckp9",
+          "role": "user",
+          "content": "阶段二的图片1和图片2在入场放大效果播放完毕，出场消散效果还没应用时，需要有一个持续缓慢放大的效果避免突兀",
+          "timestamp": 1768204492769
+        },
+        {
+          "id": "msg_1768204525745_x7srj42",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768204525745,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768207417269_tbs56oc",
+          "role": "user",
+          "content": "阶段三烟花整体加一个模糊的效果",
+          "timestamp": 1768207417269
+        },
+        {
+          "id": "msg_1768207461871_uf4ss7z",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768207461871,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768207525157_xjc9mzx",
+          "role": "user",
+          "content": "移除刚才加的阶段三的模糊效果",
+          "timestamp": 1768207525157
+        },
+        {
+          "id": "msg_1768207567273_l6x0d4u",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768207567273,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768207614197_u60z3rl",
+          "role": "user",
+          "content": "移除阶段三烟花多彩程度的参数，使用false作为默认值",
+          "timestamp": 1768207614197
+        },
+        {
+          "id": "msg_1768207653665_yjogeym",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768207653665,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768208012452_zsita6e",
+          "role": "user",
+          "content": "尽你最大努力，将阶段二图片粒子从放大到扩散消失的过程，更柔和自然50%，避免突兀感。",
+          "timestamp": 1768208012452
+        },
+        {
+          "id": "msg_1768208047716_2n4pe77",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768208047716,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768208371064_yz558e7",
+          "role": "user",
+          "content": "阶段三的烟花爆炸粒子尾焰再粗50%，靠近粒子的位置更粗，靠近尾巴的位置更细",
+          "timestamp": 1768208371064
+        },
+        {
+          "id": "msg_1768208407155_j5aycf5",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768208407155,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768208518205_xw6fs4v",
+          "role": "user",
+          "content": "阶段三目前的尾焰有明显的一段一段的痕迹，优化下渲染逻辑，要求尾焰丝滑，并且靠近粒子的地方粗，靠近尾巴的地方细",
+          "timestamp": 1768208518205
+        },
+        {
+          "id": "msg_1768208553451_6trvgz3",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768208553451,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768208769196_ldkyuuy",
+          "role": "user",
+          "content": "阶段二和三的衔接变得更自然一些，优化50%左右",
+          "timestamp": 1768208769196
+        },
+        {
+          "id": "msg_1768208804774_k85racv",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768208804774,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768209290899_84n4l9d",
+          "role": "user",
+          "content": "阶段三的烟花尾焰还是有明显的有明显的一段一段的痕迹，优化下",
+          "timestamp": 1768209290899
+        },
+        {
+          "id": "msg_1768209326281_xwwqnsy",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768209326281,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768211250634_7f5q683",
+          "role": "user",
+          "content": "阶段三的烟花尾焰目前太亮了，改成靠近粒子的地方最亮，靠近尾巴的地方更暗一些，中间是渐变效果",
+          "timestamp": 1768211250634
+        },
+        {
+          "id": "msg_1768211287555_g5g9f51",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768211287555,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768211593467_63j5dic",
+          "role": "user",
+          "content": "阶段二和阶段三的过渡时间戳需要稍微调整下，在阶段二图片粒子扩散0.1秒后，阶段三开始烟花爆炸效果",
+          "timestamp": 1768211593467
+        },
+        {
+          "id": "msg_1768211634794_3jjy5kj",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768211634794,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768211662316_j5cnalm",
+          "role": "user",
+          "content": "阶段二和阶段三的过渡时间戳需要稍微调整下，在阶段二图片粒子扩散0.3秒后，阶段三开始烟花爆炸效果",
+          "timestamp": 1768211662316
+        },
+        {
+          "id": "msg_1768211695638_ee4c6ed",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768211695638,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768219599101_13ngwsn",
+          "role": "user",
+          "content": "阶段二的粒子再放大50%，粒子中心发亮部分减小30%",
+          "timestamp": 1768219599101
+        },
+        {
+          "id": "msg_1768219637356_sr9180r",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768219637356,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768219843426_kibufwd",
+          "role": "user",
+          "content": "阶段二的每个粒子本体大小再放大50%",
+          "timestamp": 1768219843426
+        },
+        {
+          "id": "msg_1768219875200_p9uxk7y",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768219875200,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768219927145_byihtvz",
+          "role": "user",
+          "content": "阶段二粒子辉光强度参数范围大一点，0到2",
+          "timestamp": 1768219927145
+        },
+        {
+          "id": "msg_1768219965157_nq3id4a",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768219965157,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768220171993_2q7705o",
+          "role": "user",
+          "content": "阶段三的烟花爆炸粒子，外轮廓更圆润一点，给一个参数，范围0到1，0就是当前效果，1是圆形外轮廓的效果，中间渐变可调整",
+          "timestamp": 1768220171993
+        },
+        {
+          "id": "msg_1768220206996_720yfub",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768220206996,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768220921475_9n8ilbs",
+          "role": "user",
+          "content": "阶段二的粒子图片动效整体加一个辉光，即每个图片形状本身有个向外发光的效果",
+          "timestamp": 1768220921475
+        },
+        {
+          "id": "msg_1768220958255_3w7aed8",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768220958255,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768221055725_rv6t22p",
+          "role": "user",
+          "content": "阶段二的粒子本体发亮部分扩大20%",
+          "timestamp": 1768221055725
+        },
+        {
+          "id": "msg_1768221091968_kl0nip8",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768221091968,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768223957963_jgrsg10",
+          "role": "user",
+          "content": "阶段二的粒子本体大小扩大50%",
+          "timestamp": 1768223957963
+        },
+        {
+          "id": "msg_1768224001754_a82ojw0",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768224001754,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768224062596_1ogfaa9",
+          "role": "user",
+          "content": "移除阶段三\"上抛粒子比例\"参数，默认为0",
+          "timestamp": 1768224062596
+        },
+        {
+          "id": "msg_1768224097674_p1svbx5",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768224097674,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768225758930_g01l1ck",
+          "role": "user",
+          "content": "阶段二移除每个粒子本身的辉光效果，加一个更大的，整个图形形状的辉光效果",
+          "timestamp": 1768225758930
+        },
+        {
+          "id": "msg_1768225798822_z6nlozd",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768225798822,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768226501046_35uunzr",
+          "role": "user",
+          "content": "阶段三新增三个圆形辉光，分别跟着三个烟花效果放大，辉光圆心与烟花粒子的圆心重合。圆形辉光的半径是烟花当前的半径的1.3倍，辉光强度可调（0 - 10）",
+          "timestamp": 1768226501046
+        },
+        {
+          "id": "msg_1768226541100_7540y4r",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768226541100,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768226772771_i5062zg",
+          "role": "user",
+          "content": "阶段三的三个圆形辉光，需要跟随烟花粒子位置移动。可以考虑计算每个烟花爆炸粒子的位置中点，辉光位置与该中点重合",
+          "timestamp": 1768226772771
+        },
+        {
+          "id": "msg_1768226815937_f3ld3wx",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768226815937,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768226858486_nbot77g",
+          "role": "user",
+          "content": "阶段三的三个圆形辉光半径再增大25%",
+          "timestamp": 1768226858486
+        },
+        {
+          "id": "msg_1768226892768_06ujv7s",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768226892768,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768284565553_h4muyvi",
+          "role": "user",
+          "content": "阶段二的粒子颜色优化下，目前有些太白了，需要更偏向烟花主色调一点，先优化20%左右",
+          "timestamp": 1768284565553
+        },
+        {
+          "id": "msg_1768284604770_9bvohpf",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768284604770,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768284682053_1efjmqa",
+          "role": "user",
+          "content": "三阶段的烟花播放速度更灵动一些，目前的爆炸有些慢。可以爆炸速度加快10%，持续时间增加10%",
+          "timestamp": 1768284682053
+        },
+        {
+          "id": "msg_1768284716686_s5n22jg",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768284716686,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768295259986_en450b2",
+          "role": "user",
+          "content": "现在阶段三的烟花有些“黏”，优化下",
+          "timestamp": 1768295259986
+        },
+        {
+          "id": "msg_1768295310152_jnbe7jn",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768295310152,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768295359691_befnnje",
+          "role": "user",
+          "content": "还是有些黏",
+          "timestamp": 1768295359691
+        },
+        {
+          "id": "msg_1768295402743_p6e5slh",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768295402743,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768295546307_bfvomns",
+          "role": "user",
+          "content": "阶段三初速度+10%，消散速度快20%",
+          "timestamp": 1768295546307
+        },
+        {
+          "id": "msg_1768295546348_oirj1jm",
+          "role": "assistant",
+          "content": "抱歉，生成动效时遇到问题：API 请求过于频繁，请稍后重试",
+          "timestamp": 1768295546348
+        },
+        {
+          "id": "msg_1768295559810_zj89acf",
+          "role": "user",
+          "content": "阶段三初速度+10%，消散速度快20%",
+          "timestamp": 1768295559810
+        },
+        {
+          "id": "msg_1768295559845_82olguv",
+          "role": "assistant",
+          "content": "抱歉，生成动效时遇到问题：API 请求过于频繁，请稍后重试",
+          "timestamp": 1768295559845
+        },
+        {
+          "id": "msg_1768295609243_m3o6n9l",
+          "role": "user",
+          "content": "阶段三初速度+10%，消散速度快20%",
+          "timestamp": 1768295609243
+        },
+        {
+          "id": "msg_1768295663324_o4rk7xu",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768295663324,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768295758152_f2x6fuy",
+          "role": "user",
+          "content": "消散速度再快10%",
+          "timestamp": 1768295758152
+        },
+        {
+          "id": "msg_1768295818147_q88q5yf",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768295818147,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768476270175_me7co6k",
+          "role": "user",
+          "content": "严格使用我提供的代码:\"const { seededRandom, createRandomSequence } = window.__motionUtils; const sampleCache = new Map();  function getSamplePoints(img, density, seed, rotationDeg, imgScale) {   if (!img || img.width === 0) return [];   const cacheKey = `${img.src}_${density}_${rotationDeg}_${imgScale}`;   if (sampleCache.has(cacheKey)) return sampleCache.get(cacheKey);    const tempCanvas = document.createElement('canvas');   const tCtx = tempCanvas.getContext('2d');   const size = 200;   tempCanvas.width = size;   tempCanvas.height = size;    tCtx.clearRect(0, 0, size, size);   tCtx.save();   tCtx.translate(size / 2, size / 2);   tCtx.rotate((rotationDeg * Math.PI) / 180);      const imgAspect = img.width / img.height;   const maxDraw = size * 0.7;   let drawW, drawH;   if (imgAspect > 1) {     drawW = maxDraw;     drawH = maxDraw / imgAspect;   } else {     drawH = maxDraw;     drawW = maxDraw * imgAspect;   }      tCtx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);   tCtx.restore();      const data = tCtx.getImageData(0, 0, size, size).data;   const validPoints = [];   for (let i = 0; i < data.length; i += 4) {     if (data[i + 3] > 128) {       const idx = i / 4;       validPoints.push({ x: (idx % size) / size - 0.5, y: Math.floor(idx / size) / size - 0.5 });     }   }    const result = [];   const random = seededRandom(seed);   const count = Math.floor(validPoints.length * (density / 100) * imgScale * imgScale);      if (validPoints.length > 0) {     for (let i = 0; i < count; i++) {       result.push(validPoints[Math.floor(random() * validPoints.length)]);     }   }   sampleCache.set(cacheKey, result);   return result; }  const getTrajectory = (prog, seedIdx, i, canvasSize, gravityMult, roundness = 0, resistance = 0.85) => {   const rand = createRandomSequence(seedIdx * 2000 + i);   const angle = rand() * Math.PI * 2;   const speedRand = rand();      const velocityScale = 1 - roundness * 0.7;   const forceBase = 9.1; // 阶段三初速度再次提升约10%   const force = forceBase * (0.8 + speedRand * 1.2 * velocityScale);      const t = prog * 30;   const speedSum = (1 - Math.pow(resistance, t)) / (1 - resistance);      const vx0 = Math.cos(angle) * force;   const vy0 = Math.sin(angle) * force;      const dx = vx0 * speedSum * (canvasSize * 0.0055);   const gravityEffect = Math.pow(prog, 2.5) * (canvasSize * 0.45) * gravityMult * (1 - roundness * 0.5);   const dy = vy0 * speedSum * (canvasSize * 0.0055) + gravityEffect;      return { x: dx, y: dy }; };  function hexToRgb(hex) {   const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);   return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : { r: 255, g: 255, b: 255 }; } function cubicBezier(p0, p1, p2, p3) {   return function (t) {     const cx = 3 * p0;     const bx = 3 * (p2 - p0) - cx;     const ax = 1 - cx - bx;      const cy = 3 * p1;     const by = 3 * (p3 - p1) - cy;     const ay = 1 - cy - by;      function sampleCurveX(t) {       return ((ax * t + bx) * t + cx) * t;     }      function sampleCurveY(t) {       return ((ay * t + by) * t + cy) * t;     }      function sampleCurveDerivativeX(t) {       return (3 * ax * t + 2 * bx) * t + cx;     }      // Newton–Raphson 迭代求解 x = t     function solveCurveX(x) {       let t2 = x;       for (let i = 0; i < 5; i++) {         const x2 = sampleCurveX(t2) - x;         const d2 = sampleCurveDerivativeX(t2);         if (Math.abs(x2) < 1e-6) return t2;         if (Math.abs(d2) < 1e-6) break;         t2 = t2 - x2 / d2;       }       return t2;     }      return sampleCurveY(solveCurveX(t));   }; } const easeInOut = cubicBezier(0.42, 0.00, 0.58, 1.00); function render(ctx, time, params, canvas) {   const { width, height } = canvas;   const canvasSize = Math.min(width, height);   const themeColor = params.themeColor || '#fbff00';   const themeRgb = hexToRgb(themeColor);   const density = params.particleDensity || 1.2;   const stageTwoShapeGlow = params.stageTwoShapeGlow || 0;   const gravityMult = params.gravityStrength !== undefined ? params.gravityStrength : 1.5;   const tailMult = params.tailLengthMult || 2;   const stageTwoTail = params.stageTwoTailMult !== undefined ? params.stageTwoTailMult : 1;   const explosionCount = params.explosionParticleCount || 150;   const blurPower = params.transitionBlur || 10;   const outerGlowRadius = params.outerGlowRadius || 9;   const dissipateScale = params.stageTwoDissipateScale || 1.8;   const showStageOne = params.showStageOne !== false;   const idleScaleSpeed = params.idleScaleSpeed || 0.15;   const tailThickness = params.tailThickness || 1.5;   const roundness = params.roundness !== undefined ? params.roundness : 0.5;   const circularGlowIntensity = params.stageThreeCircularGlowIntensity !== undefined ? params.stageThreeCircularGlowIntensity : 5;   const airResistance = params.explosionAirResistance || 0.85;    ctx.clearRect(0, 0, width, height);    const timeOffset = showStageOne ? 0 : 600;   const adjustedTime = time + timeOffset;    const stageOneEnd = 1000;   const stageTwoStarts = [600, 800, 1000];    const stageTwoDuration = 1200;   const dissipateTrigger = 1800;   const stageThreeStart = dissipateTrigger - 100;    const stageThreeDuration = 2400; // 阶段三持续时间再次缩短约15% (从2800缩短到2400)    const images = [params.img1, params.img2, params.img3];   const imgScales = [params.img1Scale || 1, params.img2Scale || 1, params.img3Scale || 1];   const positions = [{ x: 0.7, y: 0.3 }, { x: 0.3, y: 0.5 }, { x: 0.7, y: 0.7 }];   const rotations = [20, -20, 20];    if (showStageOne && adjustedTime < stageOneEnd) {     const t = adjustedTime / stageOneEnd;     const easeT = 1 - Math.pow(1 - t, 3);     const curY = (height * 0.66) + (height * 0.5 - height * 0.66) * easeT;     let rocketAlpha = (t < 0.2) ? t / 0.2 : (t > 0.6 ? Math.max(0, 1 - (t - 0.6) / 0.4) : 1.0);      if (params.rocketImg instanceof HTMLImageElement) {       const rocketScale = params.rocketScale || 2.0;       const imgAspect = params.rocketImg.width / params.rocketImg.height;       const baseSize = canvasSize * 0.1 * rocketScale;       let drawW, drawH;       if(imgAspect > 1) { drawW = baseSize; drawH = baseSize / imgAspect; }        else { drawH = baseSize; drawW = baseSize * imgAspect; }       ctx.save();       ctx.globalAlpha = rocketAlpha;       ctx.translate(width / 2, curY);       ctx.drawImage(params.rocketImg, -drawW / 2, -drawH / 2, drawW, drawH);       ctx.restore();     }   }    images.forEach((img, idx) => {     const startTime = stageTwoStarts[idx];     if (adjustedTime < startTime) return;          const centerX = width * positions[idx].x;     const centerY = height * positions[idx].y;     const baseSize = canvasSize * 0.5 * imgScales[idx];     // 阶段二     if (adjustedTime < stageThreeStart + 800) {       const pTime = adjustedTime - startTime;       const progress = Math.min(pTime / stageTwoDuration, 1.0);       const easeProgress = easeInOut(progress);       const idleTime = Math.max(0, (adjustedTime - (startTime + stageTwoDuration)) / 1000);       const idleScale = 1 + idleTime * idleScaleSpeed;       let dissipateProgress = 0;       const dissipateDuration = 800;       if (adjustedTime > dissipateTrigger) dissipateProgress = Math.min((adjustedTime - dissipateTrigger) / dissipateDuration, 1.0);       const smoothDissipate = dissipateProgress < 0.5 ? 2 * dissipateProgress * dissipateProgress : 1 - Math.pow(-2 * dissipateProgress + 2, 2) / 2;       const currentScale = idleScale + smoothDissipate * (dissipateScale - 1);       const opacity = adjustedTime > dissipateTrigger ? Math.max(0, 1 - Math.pow(dissipateProgress, 2.0)) : 1.0;        const points = getSamplePoints(img, density, idx, rotations[idx], imgScales[idx]);       const nextRand = createRandomSequence(adjustedTime + idx);        ctx.save();       ctx.globalAlpha = opacity;       ctx.globalCompositeOperation = 'lighter';              let currentBlur = 0;       if (progress < 0.25) currentBlur = (0.25 - progress) * (canvasSize / 640) * blurPower;       if (dissipateProgress > 0) currentBlur = smoothDissipate * (canvasSize / 640) * blurPower * 0.8;       if (currentBlur > 0) ctx.filter = `blur(${currentBlur}px)`;              if (stageTwoShapeGlow > 0) {         ctx.shadowColor = themeColor;         ctx.shadowBlur = stageTwoShapeGlow * (canvasSize / 640) * (1 + smoothDissipate * 0.5);       }        ctx.translate(centerX, centerY);        ctx.beginPath();       points.forEach((p) => {         const px = p.x * baseSize * easeProgress * currentScale;         const py = p.y * baseSize * easeProgress * currentScale;         const angle = Math.atan2(py, px);         const tailLen = (canvasSize * 0.05 + nextRand() * canvasSize * 0.03) * (1 - easeProgress + 0.05) * stageTwoTail * Math.max(0, 1 - smoothDissipate * 1.5);         ctx.moveTo(px, py);         ctx.lineTo(px - Math.cos(angle) * tailLen, py - Math.sin(angle) * tailLen);       });       ctx.strokeStyle = themeColor;       ctx.lineWidth = (canvasSize * 0.0035) * easeProgress * (1 - smoothDissipate * 0.6);       ctx.stroke();              ctx.beginPath();       points.forEach(p => {         const px = p.x * baseSize * easeProgress * currentScale;         const py = p.y * baseSize * easeProgress * currentScale;         const coreRadius = (canvasSize * 0.003) * easeProgress;         ctx.moveTo(px + coreRadius, py);         ctx.arc(px, py, coreRadius, 0, Math.PI * 2);       });       const mixR = Math.round(255 * 0.6 + themeRgb.r * 0.4);       const mixG = Math.round(255 * 0.6 + themeRgb.g * 0.4);       const mixB = Math.round(255 * 0.6 + themeRgb.b * 0.4);       ctx.fillStyle = `rgba(${mixR}, ${mixG}, ${mixB}, ${0.9 * opacity})`;       ctx.fill();       ctx.restore();     }     // 阶段三     if (adjustedTime >= stageThreeStart) {       const expTime = adjustedTime - stageThreeStart;       const expProgress = Math.min(expTime / stageThreeDuration, 1);       if (expProgress >= 1) return;       const fadeIn = Math.min(expTime / 60, 1.0);       // 消散速度再次提升：使用更陡峭的 alpha 衰减 (1.7 -> 2.3)       const alpha = Math.pow(1 - expProgress, 2.3) * fadeIn;              let sumX = 0, sumY = 0;       for (let i = 0; i < explosionCount; i++) {         const traj = getTrajectory(expProgress, idx, i, canvasSize, gravityMult, roundness, airResistance);         sumX += traj.x;         sumY += traj.y;       }       const avgX = centerX + sumX / explosionCount;       const avgY = centerY + sumY / explosionCount;        ctx.save();       ctx.globalCompositeOperation = 'lighter';              if (circularGlowIntensity > 0) {         const maxR = canvasSize * 0.45 * expProgress * (1.3 + 0.5 * (1 - roundness));         const glowR = maxR * 2.25;         const rgb = themeRgb;         const circularGrad = ctx.createRadialGradient(avgX, avgY, 0, avgX, avgY, glowR);         circularGrad.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.25 * alpha * circularGlowIntensity})`);         circularGrad.addColorStop(0.4, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.1 * alpha * circularGlowIntensity})`);         circularGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');         ctx.fillStyle = circularGrad;         ctx.beginPath();         ctx.arc(avgX, avgY, glowR, 0, Math.PI * 2);         ctx.fill();       }        ctx.lineCap = 'round';       ctx.lineJoin = 'round';       const rgb = themeRgb;       const tailSteps = 15; // 进一步减少步数，让线条更干净利落       const totalTailLength = 0.07 * tailMult; // 进一步缩短尾迹长度，减少“黏连”感        for (let i = 0; i < explosionCount; i++) {         const offset = getTrajectory(expProgress, idx, i, canvasSize, gravityMult, roundness, airResistance);         const curX = centerX + offset.x;         const curY = centerY + offset.y;         const baseWidth = canvasSize * 0.008 * tailThickness * (1 - expProgress);                  const grad = ctx.createLinearGradient(centerX, centerY, curX, curY);         grad.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);         grad.addColorStop(0.75, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha * 0.35})`);         grad.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha * 0.85})`);                  ctx.beginPath();         for (let j = 0; j <= tailSteps; j++) {           const tStep = Math.max(0, expProgress - (j / tailSteps) * totalTailLength);           const p = getTrajectory(tStep, idx, i, canvasSize, gravityMult, roundness, airResistance);           if (j === 0) ctx.moveTo(centerX + p.x, centerY + p.y);           else ctx.lineTo(centerX + p.x, centerY + p.y);         }         ctx.lineWidth = baseWidth * 1.2;         ctx.strokeStyle = grad;         ctx.stroke();          const whiteGrad = ctx.createLinearGradient(centerX, centerY, curX, curY);         whiteGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');         whiteGrad.addColorStop(0.85, 'rgba(255, 255, 255, 0)');         whiteGrad.addColorStop(1, `rgba(255, 255, 255, ${alpha * 0.95})`);         ctx.lineWidth = baseWidth * 0.45;         ctx.strokeStyle = whiteGrad;         ctx.stroke();          const pR = (canvasSize * 0.0055 * (1 - expProgress)) + (canvasSize * 0.0004);         const glowR = pR * outerGlowRadius * (1 + params.glowIntensity/100);         const radialGrad = ctx.createRadialGradient(curX, curY, 0, curX, curY, glowR);         radialGrad.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.55 * alpha})`);         radialGrad.addColorStop(0.3, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.25 * alpha})`);         radialGrad.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);         ctx.fillStyle = radialGrad;         ctx.fillRect(curX - glowR, curY - glowR, glowR * 2, glowR * 2);          ctx.beginPath();         ctx.arc(curX, curY, pR, 0, Math.PI * 2);         ctx.fillStyle = `rgba(255, 255, 255, ${0.95 * alpha})`;         ctx.fill();       }       ctx.restore();     }   }); } window.__motionRender = render;\"",
+          "timestamp": 1768476270175
+        },
+        {
+          "id": "msg_1768476313637_sd6qnij",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768476313637,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768478396703_8qdict5",
+          "role": "assistant",
+          "content": "已自动修复代码错误，动效已更新。",
+          "timestamp": 1768478396703,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768478720404_u42sude",
+          "role": "user",
+          "content": "阶段二贝塞尔曲线改为以下的值：easeInOut：0.26, 1.00, 0.48, 1.00",
+          "timestamp": 1768478720404
+        },
+        {
+          "id": "msg_1768478757512_bsefyjk",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768478757512,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768478860616_4qw2eii",
+          "role": "user",
+          "content": "阶段二贝塞尔曲线改为以下的值：easeInOut：0.26, 0.00, 0.48, 1.00",
+          "timestamp": 1768478860616
+        },
+        {
+          "id": "msg_1768478900699_ektwjze",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768478900699,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768478988679_64r7jbr",
+          "role": "user",
+          "content": "阶段三的烟花，添加一个随机粗细的参数，默认为0，即粗细一致",
+          "timestamp": 1768478988679
+        },
+        {
+          "id": "msg_1768479025276_wxzypjp",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768479025276,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768479195170_lg1sc1w",
+          "role": "user",
+          "content": "阶段三烟花扩散的分布随机一点，现在太规整了",
+          "timestamp": 1768479195170
+        },
+        {
+          "id": "msg_1768479239051_xvzdi0k",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768479239051,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768479730936_ohwxz80",
+          "role": "user",
+          "content": "阶段二的尾焰，在图片从scale 0逐渐放大时，尾焰是逐渐变长的，等长度达到尾焰长度倍率之后，长度不再改变，修复下",
+          "timestamp": 1768479730936
+        },
+        {
+          "id": "msg_1768479770948_pil769y",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768479770948,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768480363637_ec80ult",
+          "role": "user",
+          "content": "阶段二的三张图分别加个开关，当且仅当阶段二的图片开关打开时，才显示阶段二对应图片粒子的效果，以及阶段三的烟花爆炸效果。  并且三张图新增调整位置和旋转的参数(posX,posY,rotation)，可以调整三张图的位置和旋转角度",
+          "timestamp": 1768480363637
+        },
+        {
+          "id": "msg_1768480413630_ryk75hz",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768480413630,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768484803551_e5nmzck",
+          "role": "user",
+          "content": "阶段二粒子动画，目前的逻辑是图片按照贝塞尔曲线从scale 0 放大到 1.0，静止后再放大模糊消散。需要改成以下逻辑：总时长2000ms，整体从0放大到1.1，遵循贝塞尔曲线的幅度(0.26, 1.00, 0.48, 1.00)，中间不静止，移除最后的扩大模糊效果，阶段三在阶段二图片一结束前200ms开始播放烟花爆炸效果",
+          "timestamp": 1768484803552
+        },
+        {
+          "id": "msg_1768484897229_8l332o9",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768484897229,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768484997534_h7lfa0q",
+          "role": "user",
+          "content": "阶段二粒子图片，在scale达到1.05时，添加一个渐隐动画 + 一点模糊效果",
+          "timestamp": 1768484997534
+        },
+        {
+          "id": "msg_1768485093941_454yr5w",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768485093941,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768485132265_px2gm9o",
+          "role": "user",
+          "content": "移除阶段二的模糊效果，仅保留渐隐动画",
+          "timestamp": 1768485132265
+        },
+        {
+          "id": "msg_1768485227501_q4bya1d",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768485227501,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768485251933_1duot39",
+          "role": "user",
+          "content": "阶段三烟花爆炸前移200ms",
+          "timestamp": 1768485251933
+        },
+        {
+          "id": "msg_1768485348684_n98a4rl",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768485348684,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768485362002_a4ngrbt",
+          "role": "user",
+          "content": "阶段三烟花爆炸前再移200ms",
+          "timestamp": 1768485362002
+        },
+        {
+          "id": "msg_1768485457756_cam4ekx",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768485457756,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        },
+        {
+          "id": "msg_1768485471347_320gwa0",
+          "role": "user",
+          "content": "阶段三烟花爆炸再前移400ms",
+          "timestamp": 1768485471347
+        },
+        {
+          "id": "msg_1768485566418_tquljap",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768485566418,
+          "motionSnapshot": "motion_1768159903806_li8pip6"
+        }
+      ],
+      "motion": {
+        "id": "motion_1768159903806_li8pip6",
+        "renderMode": "canvas",
+        "duration": 5000,
+        "width": 640,
+        "height": 1136,
+        "backgroundColor": "transparent",
+        "elements": [],
+        "parameters": [
+          {
+            "id": "showStageOne",
+            "name": "启用阶段一：烟花筒",
+            "type": "boolean",
+            "path": "params.showStageOne",
+            "boolValue": true
+          },
+          {
+            "id": "rocketImg",
+            "name": "阶段一：烟花筒图片",
+            "type": "image",
+            "path": "params.rocketImg",
+            "imageValue": "blob:http://localhost:5173/bdb7a55a-5261-4ce1-923a-7958ac1540ee",
+            "placeholderImage": "__PLACEHOLDER__"
+          },
+          {
+            "id": "rocketScale",
+            "name": "阶段一：烟花筒缩放",
+            "type": "number",
+            "path": "params.rocketScale",
+            "min": 0.1,
+            "max": 5,
+            "step": 0.1,
+            "value": 2.6
+          },
+          {
+            "id": "showImg1",
+            "name": "启用图片1效果",
+            "type": "boolean",
+            "path": "params.showImg1",
+            "boolValue": true
+          },
+          {
+            "id": "img1",
+            "name": "阶段二：图片1 (App)",
+            "type": "image",
+            "path": "params.img1",
+            "imageValue": "blob:http://localhost:5173/6eb01ad4-b9c4-488e-83cc-e8dd1b970d50",
+            "placeholderImage": "__PLACEHOLDER__"
+          },
+          {
+            "id": "img1Scale",
+            "name": "阶段二：图片1缩放",
+            "type": "number",
+            "path": "params.img1Scale",
+            "min": 0.1,
+            "max": 3,
+            "step": 0.1,
+            "value": 1
+          },
+          {
+            "id": "img1PosX",
+            "name": "图片1位置 X",
+            "type": "number",
+            "path": "params.img1PosX",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.7
+          },
+          {
+            "id": "img1PosY",
+            "name": "图片1位置 Y",
+            "type": "number",
+            "path": "params.img1PosY",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.3
+          },
+          {
+            "id": "img1Rotation",
+            "name": "图片1旋转角度",
+            "type": "number",
+            "path": "params.img1Rotation",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "value": 20
+          },
+          {
+            "id": "showImg2",
+            "name": "启用图片2效果",
+            "type": "boolean",
+            "path": "params.showImg2",
+            "boolValue": true
+          },
+          {
+            "id": "img2",
+            "name": "阶段二：图片2 (Store)",
+            "type": "image",
+            "path": "params.img2",
+            "imageValue": "blob:http://localhost:5173/649adfbf-481a-4be3-a7f2-e64cc692dd21",
+            "placeholderImage": "__PLACEHOLDER__"
+          },
+          {
+            "id": "img2Scale",
+            "name": "阶段二：图片2缩放",
+            "type": "number",
+            "path": "params.img2Scale",
+            "min": 0.1,
+            "max": 3,
+            "step": 0.1,
+            "value": 0.8
+          },
+          {
+            "id": "img2PosX",
+            "name": "图片2位置 X",
+            "type": "number",
+            "path": "params.img2PosX",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.3
+          },
+          {
+            "id": "img2PosY",
+            "name": "图片2位置 Y",
+            "type": "number",
+            "path": "params.img2PosY",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.5
+          },
+          {
+            "id": "img2Rotation",
+            "name": "图片2旋转角度",
+            "type": "number",
+            "path": "params.img2Rotation",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "value": -20
+          },
+          {
+            "id": "showImg3",
+            "name": "启用图片3效果",
+            "type": "boolean",
+            "path": "params.showImg3",
+            "boolValue": true
+          },
+          {
+            "id": "img3",
+            "name": "阶段二：图片3 (Apple)",
+            "type": "image",
+            "path": "params.img3",
+            "imageValue": "blob:http://localhost:5173/1a0f9165-c15b-46bb-9776-5fbac78c76b6",
+            "placeholderImage": "__PLACEHOLDER__"
+          },
+          {
+            "id": "img3Scale",
+            "name": "阶段二：图片3缩放",
+            "type": "number",
+            "path": "params.img3Scale",
+            "min": 0.1,
+            "max": 3,
+            "step": 0.1,
+            "value": 1.1
+          },
+          {
+            "id": "img3PosX",
+            "name": "图片3位置 X",
+            "type": "number",
+            "path": "params.img3PosX",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.7
+          },
+          {
+            "id": "img3PosY",
+            "name": "图片3位置 Y",
+            "type": "number",
+            "path": "params.img3PosY",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.7
+          },
+          {
+            "id": "img3Rotation",
+            "name": "图片3旋转角度",
+            "type": "number",
+            "path": "params.img3Rotation",
+            "min": -180,
+            "max": 180,
+            "step": 1,
+            "value": 20
+          },
+          {
+            "id": "stageTwoFinalScale",
+            "name": "阶段二：最终缩放比例",
+            "type": "number",
+            "path": "params.stageTwoFinalScale",
+            "min": 0.5,
+            "max": 2,
+            "step": 0.05,
+            "value": 1.1
+          },
+          {
+            "id": "stageTwoFadeStartScale",
+            "name": "阶段二：渐隐开始缩放",
+            "type": "number",
+            "path": "params.stageTwoFadeStartScale",
+            "min": 0.5,
+            "max": 1.5,
+            "step": 0.05,
+            "value": 1
+          },
+          {
+            "id": "particleDensity",
+            "name": "阶段二：形状粒子密度",
+            "type": "number",
+            "path": "params.particleDensity",
+            "min": 0.1,
+            "max": 20,
+            "step": 0.1,
+            "value": 18
+          },
+          {
+            "id": "stageTwoShapeGlow",
+            "name": "阶段二：形状整体发光",
+            "type": "number",
+            "path": "params.stageTwoShapeGlow",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "value": 80
+          },
+          {
+            "id": "stageTwoTailMult",
+            "name": "阶段二：尾焰长度倍率",
+            "type": "number",
+            "path": "params.stageTwoTailMult",
+            "min": 0.1,
+            "max": 3,
+            "step": 0.1,
+            "value": 0.2
+          },
+          {
+            "id": "themeColor",
+            "name": "阶段三：烟花主色调",
+            "type": "color",
+            "path": "params.themeColor",
+            "colorValue": "#ffc800"
+          },
+          {
+            "id": "glowIntensity",
+            "name": "阶段三：辉光强度",
+            "type": "number",
+            "path": "params.glowIntensity",
+            "min": 0,
+            "max": 200,
+            "step": 1,
+            "value": 71
+          },
+          {
+            "id": "stageThreeCircularGlowIntensity",
+            "name": "阶段三：背景圆形辉光强度",
+            "type": "number",
+            "path": "params.stageThreeCircularGlowIntensity",
+            "min": 0,
+            "max": 10,
+            "step": 0.1,
+            "value": 4
+          },
+          {
+            "id": "gravityStrength",
+            "name": "阶段三：重力下坠强度",
+            "type": "number",
+            "path": "params.gravityStrength",
+            "min": 0,
+            "max": 10,
+            "step": 0.1,
+            "value": 1.4
+          },
+          {
+            "id": "tailLengthMult",
+            "name": "阶段三：尾迹长度倍率",
+            "type": "number",
+            "path": "params.tailLengthMult",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.1,
+            "value": 2
+          },
+          {
+            "id": "explosionParticleCount",
+            "name": "阶段三：爆炸粒子量",
+            "type": "number",
+            "path": "params.explosionParticleCount",
+            "min": 50,
+            "max": 1000,
+            "step": 10,
+            "value": 200
+          },
+          {
+            "id": "outerGlowRadius",
+            "name": "阶段三：外发光半径",
+            "type": "number",
+            "path": "params.outerGlowRadius",
+            "min": 1,
+            "max": 10,
+            "step": 0.5,
+            "value": 2.5
+          },
+          {
+            "id": "tailThickness",
+            "name": "阶段三：尾迹粗细倍率",
+            "type": "number",
+            "path": "params.tailThickness",
+            "min": 0.5,
+            "max": 5,
+            "step": 0.1,
+            "value": 2.5
+          },
+          {
+            "id": "stageThreeRandomThickness",
+            "name": "阶段三：随机粗细程度",
+            "type": "number",
+            "path": "params.stageThreeRandomThickness",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "value": 0.75
+          },
+          {
+            "id": "stageThreeSpreadRandomness",
+            "name": "阶段三：分布随机度",
+            "type": "number",
+            "path": "params.stageThreeSpreadRandomness",
+            "min": 0,
+            "max": 1,
+            "step": 0.05,
+            "value": 0.5
+          },
+          {
+            "id": "roundness",
+            "name": "阶段三：爆炸轮廓圆润度",
+            "type": "number",
+            "path": "params.roundness",
+            "min": 0,
+            "max": 1,
+            "step": 0.05,
+            "value": 0.3
+          },
+          {
+            "id": "explosionAirResistance",
+            "name": "阶段三：空气阻力(越小越散)",
+            "type": "number",
+            "path": "params.explosionAirResistance",
+            "min": 0.8,
+            "max": 0.99,
+            "step": 0.01,
+            "value": 0.81
+          }
+        ],
+        "code": "const { seededRandom, createRandomSequence } = window.__motionUtils; const sampleCache = new Map(); function getSamplePoints(img, density, seed, rotationDeg, imgScale) { if (!img || img.width === 0) return []; const cacheKey = `${img.src}_${density}_${rotationDeg}_${imgScale}`; if (sampleCache.has(cacheKey)) return sampleCache.get(cacheKey); const tempCanvas = document.createElement('canvas'); const tCtx = tempCanvas.getContext('2d'); const size = 200; tempCanvas.width = size; tempCanvas.height = size; tCtx.clearRect(0, 0, size, size); tCtx.save(); tCtx.translate(size / 2, size / 2); tCtx.rotate((rotationDeg * Math.PI) / 180); const imgAspect = img.width / img.height; const maxDraw = size * 0.7; let drawW, drawH; if (imgAspect > 1) { drawW = maxDraw; drawH = maxDraw / imgAspect; } else { drawH = maxDraw; drawW = maxDraw * imgAspect; } tCtx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH); tCtx.restore(); const data = tCtx.getImageData(0, 0, size, size).data; const validPoints = []; for (let i = 0; i < data.length; i += 4) { if (data[i + 3] > 128) { const idx = i / 4; validPoints.push({ x: (idx % size) / size - 0.5, y: Math.floor(idx / size) / size - 0.5 }); } } const result = []; const random = seededRandom(seed); const count = Math.floor(validPoints.length * (density / 100) * imgScale * imgScale); if (validPoints.length > 0) { for (let i = 0; i < count; i++) { result.push(validPoints[Math.floor(random() * validPoints.length)]); } } sampleCache.set(cacheKey, result); return result; } const getTrajectory = (prog, seedIdx, i, canvasSize, gravityMult, roundness = 0, resistance = 0.85, spreadRand = 0) => { const rand = createRandomSequence(seedIdx * 2000 + i); let angle = rand() * Math.PI * 2; const speedRand = rand(); const jitterRand = rand(); if (spreadRand > 0) { angle += (jitterRand * 2 - 1) * spreadRand * 0.8; } const velocityScale = 1 - roundness * 0.7; const forceBase = 9.1; const force = forceBase * (0.8 + speedRand * 1.2 * velocityScale) * (1 + (jitterRand * 2 - 1) * spreadRand * 0.3); const t = prog * 30; const speedSum = (1 - Math.pow(resistance, t)) / (1 - resistance); const vx0 = Math.cos(angle) * force; const vy0 = Math.sin(angle) * force; const dx = vx0 * speedSum * (canvasSize * 0.0055); const gravityEffect = Math.pow(prog, 2.5) * (canvasSize * 0.45) * gravityMult * (1 - roundness * 0.5); const dy = vy0 * speedSum * (canvasSize * 0.0055) + gravityEffect; return { x: dx, y: dy }; }; function hexToRgb(hex) { const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex); return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : { r: 255, g: 255, b: 255 }; } function cubicBezier(p0, p1, p2, p3) { return function (t) { const cx = 3 * p0; const bx = 3 * (p2 - p0) - cx; const ax = 1 - cx - bx; const cy = 3 * p1; const by = 3 * (p3 - p1) - cy; const ay = 1 - cy - by; function sampleCurveX(t) { return ((ax * t + bx) * t + cx) * t; } function sampleCurveY(t) { return ((ay * t + by) * t + cy) * t; } function sampleCurveDerivativeX(t) { return (3 * ax * t + 2 * bx) * t + cx; } function solveCurveX(x) { let t2 = x; for (let i = 0; i < 5; i++) { const x2 = sampleCurveX(t2) - x; const d2 = sampleCurveDerivativeX(t2); if (Math.abs(x2) < 1e-6) return t2; if (Math.abs(d2) < 1e-6) break; t2 = t2 - x2 / d2; } return t2; } return sampleCurveY(solveCurveX(t)); }; } const easeInOut = cubicBezier(0.26, 1.00, 0.48, 1.00); function render(ctx, time, params, canvas) { const { width, height } = canvas; const canvasSize = Math.min(width, height); const themeColor = params.themeColor || '#fbff00'; const themeRgb = hexToRgb(themeColor); const density = params.particleDensity || 1.2; const stageTwoShapeGlow = params.stageTwoShapeGlow || 0; const gravityMult = params.gravityStrength !== undefined ? params.gravityStrength : 1.5; const tailMult = params.tailLengthMult || 2; const stageTwoTailMax = params.stageTwoTailMult !== undefined ? params.stageTwoTailMult : 1; const explosionCount = params.explosionParticleCount || 150; const outerGlowRadius = params.outerGlowRadius || 9; const showStageOne = params.showStageOne !== false; const stageTwoFinalScale = params.stageTwoFinalScale !== undefined ? params.stageTwoFinalScale : 1.1; const stageTwoFadeStartScale = params.stageTwoFadeStartScale !== undefined ? params.stageTwoFadeStartScale : 1.05; const tailThickness = params.tailThickness || 1.5; const randomThicknessMult = params.stageThreeRandomThickness !== undefined ? params.stageThreeRandomThickness : 0; const spreadRandVal = params.stageThreeSpreadRandomness !== undefined ? params.stageThreeSpreadRandomness : 0.5; const roundness = params.roundness !== undefined ? params.roundness : 0.5; const circularGlowIntensity = params.stageThreeCircularGlowIntensity !== undefined ? params.stageThreeCircularGlowIntensity : 5; const airResistance = params.explosionAirResistance || 0.85; ctx.clearRect(0, 0, width, height); const timeOffset = showStageOne ? 0 : 600; const adjustedTime = time + timeOffset; const stageOneEnd = 1000; const stageTwoStarts = [600, 800, 1000]; const stageTwoDuration = 2000; const stageThreeOffset = -1000; const stageThreeDuration = 2400; const images = [params.img1, params.img2, params.img3]; const showImages = [params.showImg1 !== false, params.showImg2 !== false, params.showImg3 !== false]; const imgScales = [params.img1Scale || 1, params.img2Scale || 1, params.img3Scale || 1]; const positions = [ { x: params.img1PosX !== undefined ? params.img1PosX : 0.7, y: params.img1PosY !== undefined ? params.img1PosY : 0.3 }, { x: params.img2PosX !== undefined ? params.img2PosX : 0.3, y: params.img2PosY !== undefined ? params.img2PosY : 0.5 }, { x: params.img3PosX !== undefined ? params.img3PosX : 0.7, y: params.img3PosY !== undefined ? params.img3PosY : 0.7 } ]; const rotations = [ params.img1Rotation !== undefined ? params.img1Rotation : 20, params.img2Rotation !== undefined ? params.img2Rotation : -20, params.img3Rotation !== undefined ? params.img3Rotation : 20 ]; if (showStageOne && adjustedTime < stageOneEnd) { const t = adjustedTime / stageOneEnd; const easeT = 1 - Math.pow(1 - t, 3); const curY = (height * 0.66) + (height * 0.5 - height * 0.66) * easeT; let rocketAlpha = (t < 0.2) ? t / 0.2 : (t > 0.6 ? Math.max(0, 1 - (t - 0.6) / 0.4) : 1.0); if (params.rocketImg instanceof HTMLImageElement) { const rocketScale = params.rocketScale || 2.0; const imgAspect = params.rocketImg.width / params.rocketImg.height; const baseSize = canvasSize * 0.1 * rocketScale; let drawW, drawH; if(imgAspect > 1) { drawW = baseSize; drawH = baseSize / imgAspect; } else { drawH = baseSize; drawW = baseSize * imgAspect; } ctx.save(); ctx.globalAlpha = rocketAlpha; ctx.translate(width / 2, curY); ctx.drawImage(params.rocketImg, -drawW / 2, -drawH / 2, drawW, drawH); ctx.restore(); } } images.forEach((img, idx) => { if (!showImages[idx]) return; const startTime = stageTwoStarts[idx]; if (adjustedTime < startTime) return; const centerX = width * positions[idx].x; const centerY = height * positions[idx].y; const baseSize = canvasSize * 0.5 * imgScales[idx]; const stageTwoEndTime = startTime + stageTwoDuration; const stageThreeStartTime = stageTwoEndTime + stageThreeOffset; if (adjustedTime < stageTwoEndTime) { const pTime = adjustedTime - startTime; const progress = Math.min(pTime / stageTwoDuration, 1.0); const easeProgress = easeInOut(progress); const currentScale = easeProgress * stageTwoFinalScale; const points = getSamplePoints(img, density, idx, rotations[idx], imgScales[idx]); const nextRand = createRandomSequence(adjustedTime + idx); ctx.save(); ctx.globalCompositeOperation = 'lighter'; let fadeAlpha = 1.0; if (currentScale >= stageTwoFadeStartScale) { const fadeProgress = (currentScale - stageTwoFadeStartScale) / (stageTwoFinalScale - stageTwoFadeStartScale); fadeAlpha = Math.max(0, 1 - fadeProgress); } ctx.globalAlpha = fadeAlpha; if (stageTwoShapeGlow > 0) { ctx.shadowColor = themeColor; ctx.shadowBlur = stageTwoShapeGlow * (canvasSize / 640); } ctx.translate(centerX, centerY); ctx.beginPath(); points.forEach((p) => { const px = p.x * baseSize * currentScale; const py = p.y * baseSize * currentScale; const angle = Math.atan2(py, px); const maxTailLen = (canvasSize * 0.05 + nextRand() * canvasSize * 0.03) * stageTwoTailMax; const growthFactor = Math.min(progress / 0.3, 1.0); const tailLen = maxTailLen * growthFactor * (1 - easeProgress * 0.8 + 0.2); ctx.moveTo(px, py); ctx.lineTo(px - Math.cos(angle) * tailLen, py - Math.sin(angle) * tailLen); }); ctx.strokeStyle = themeColor; ctx.lineWidth = (canvasSize * 0.0035) * Math.min(easeProgress * 2, 1); ctx.stroke(); ctx.beginPath(); points.forEach(p => { const px = p.x * baseSize * currentScale; const py = p.y * baseSize * currentScale; const coreRadius = (canvasSize * 0.003) * Math.min(easeProgress * 2, 1); ctx.moveTo(px + coreRadius, py); ctx.arc(px, py, coreRadius, 0, Math.PI * 2); }); const mixR = Math.round(255 * 0.6 + themeRgb.r * 0.4); const mixG = Math.round(255 * 0.6 + themeRgb.g * 0.4); const mixB = Math.round(255 * 0.6 + themeRgb.b * 0.4); ctx.fillStyle = `rgba(${mixR}, ${mixG}, ${mixB}, 0.9)`; ctx.fill(); ctx.restore(); } if (adjustedTime >= stageThreeStartTime) { const expTime = adjustedTime - stageThreeStartTime; const expProgress = Math.min(expTime / stageThreeDuration, 1); if (expProgress >= 1) return; const fadeIn = Math.min(expTime / 60, 1.0); const alpha = Math.pow(1 - expProgress, 2.3) * fadeIn; let sumX = 0, sumY = 0; for (let i = 0; i < explosionCount; i++) { const traj = getTrajectory(expProgress, idx, i, canvasSize, gravityMult, roundness, airResistance, spreadRandVal); sumX += traj.x; sumY += traj.y; } const avgX = centerX + sumX / explosionCount; const avgY = centerY + sumY / explosionCount; ctx.save(); ctx.globalCompositeOperation = 'lighter'; if (circularGlowIntensity > 0) { const maxR = canvasSize * 0.45 * expProgress * (1.3 + 0.5 * (1 - roundness)); const glowR = maxR * 2.25; const rgb = themeRgb; const circularGrad = ctx.createRadialGradient(avgX, avgY, 0, avgX, avgY, glowR); circularGrad.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.25 * alpha * circularGlowIntensity})`); circularGrad.addColorStop(0.4, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.1 * alpha * circularGlowIntensity})`); circularGrad.addColorStop(1, 'rgba(0, 0, 0, 0)'); ctx.fillStyle = circularGrad; ctx.beginPath(); ctx.arc(avgX, avgY, glowR, 0, Math.PI * 2); ctx.fill(); } ctx.lineCap = 'round'; ctx.lineJoin = 'round'; const rgb = themeRgb; const tailSteps = 15; const totalTailLength = 0.07 * tailMult; for (let i = 0; i < explosionCount; i++) { const particleRand = createRandomSequence(idx * 5000 + i); const sizeVariation = 1 + (particleRand() * 2 - 1) * randomThicknessMult; const offset = getTrajectory(expProgress, idx, i, canvasSize, gravityMult, roundness, airResistance, spreadRandVal); const curX = centerX + offset.x; const curY = centerY + offset.y; const baseWidth = canvasSize * 0.008 * tailThickness * (1 - expProgress) * sizeVariation; const grad = ctx.createLinearGradient(centerX, centerY, curX, curY); grad.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`); grad.addColorStop(0.75, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha * 0.35})`); grad.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha * 0.85})`); ctx.beginPath(); for (let j = 0; j <= tailSteps; j++) { const tStep = Math.max(0, expProgress - (j / tailSteps) * totalTailLength); const p = getTrajectory(tStep, idx, i, canvasSize, gravityMult, roundness, airResistance, spreadRandVal); if (j === 0) ctx.moveTo(centerX + p.x, centerY + p.y); else ctx.lineTo(centerX + p.x, centerY + p.y); } ctx.lineWidth = baseWidth * 1.2; ctx.strokeStyle = grad; ctx.stroke(); const whiteGrad = ctx.createLinearGradient(centerX, centerY, curX, curY); whiteGrad.addColorStop(0, 'rgba(255, 255, 255, 0)'); whiteGrad.addColorStop(0.85, 'rgba(255, 255, 255, 0)'); whiteGrad.addColorStop(1, `rgba(255, 255, 255, ${alpha * 0.95})`); ctx.lineWidth = baseWidth * 0.45; ctx.strokeStyle = whiteGrad; ctx.stroke(); const pR = ((canvasSize * 0.0055 * (1 - expProgress)) + (canvasSize * 0.0004)) * sizeVariation; const glowR = pR * outerGlowRadius * (1 + (params.glowIntensity || 0)/100); const radialGrad = ctx.createRadialGradient(curX, curY, 0, curX, curY, glowR); radialGrad.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.55 * alpha})`); radialGrad.addColorStop(0.3, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.25 * alpha})`); radialGrad.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`); ctx.fillStyle = radialGrad; ctx.fillRect(curX - glowR, curY - glowR, glowR * 2, glowR * 2); ctx.beginPath(); ctx.arc(curX, curY, pR, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 255, 255, ${0.95 * alpha})`; ctx.fill(); } ctx.restore(); } }); } window.__motionRender = render;",
+        "createdAt": 1768159903806,
+        "updatedAt": 1768486291043
+      },
+      "createdAt": 1768484800296,
+      "updatedAt": 1768484800296
+    }
+  },
+  {
+    "version": "0.1.0",
+    "exportedAt": 1768550485632,
+    "conversation": {
+      "id": "0aeaf340-a17f-43e6-a148-25093aecaf3b",
+      "title": "射线形状",
+      "messages": [
+        {
+          "id": "msg_1768465047960_reuedv1",
+          "role": "user",
+          "content": "生成一个3秒的动效效果，要求使用类3D射线效果，生成字符串\"2025\"。参考图如附件所示 具体实现方式： 你可以这么理解这个效果，思考一个3D空间，离画布较远处有一个射线发生器，往屏幕方向同时发射1000个短射线，短射线的起点相同，终点组成字符串\"2025\"。即射线从起始点到终点的任何一个截面，都是\"2025\"字符串. 起点距离屏幕100，终点距离屏幕50。可以调整起点的位置，来控制字符串的大小以及射线向外扩散的角度，不改变终点的位置，以保证终态图形大小效果一致。 考虑到实时渲染的性能，不要对每条射线使用辉光或模糊效果，使用全局的环境辉光 射线亮度也要进行一定调整，在终点附近的射线最亮，在起点的最暗，有一个渐变效果。",
+          "timestamp": 1768465047963,
+          "attachmentIds": [
+            "temp_1768465047455_0flt3mm"
+          ]
+        },
+        {
+          "id": "msg_1768465055613_nk7h6ad",
+          "role": "assistant",
+          "content": "为了更好地理解您的需求，我需要确认几个问题：",
+          "timestamp": 1768465055613
+        },
+        {
+          "id": "msg_1768465061072_5x1z4mj",
+          "role": "user",
+          "content": "您希望这 3 秒内的动画过程是如何演变的？\n→ 射线从起点向终点（屏幕方向）生长喷射，最终停留在终点形成完整字形",
+          "timestamp": 1768465061072
+        },
+        {
+          "id": "msg_1768465062614_kbful93",
+          "role": "user",
+          "content": "关于射线的色彩方案，您有具体的偏好吗？\n→ 参考图中的橙金色调（类似火花或金属光泽）",
+          "timestamp": 1768465062614
+        },
+        {
+          "id": "msg_1768465067173_b4p2wg5",
+          "role": "user",
+          "content": "射线的分布方式您希望是怎样的？\n→ 仅分布在数字的轮廓边缘（空心线条感）",
+          "timestamp": 1768465067173
+        },
+        {
+          "id": "msg_1768465068666_xfc0l4p",
+          "role": "user",
+          "content": "动画结束时的状态（Loop 方式）是什么？\n→ 动画播放一次，最终静止在最亮的终点状态",
+          "timestamp": 1768465068666
+        },
+        {
+          "id": "msg_1768465084020_m279uqa",
+          "role": "assistant",
+          "content": "已为您生成动效，可以在右侧预览区查看。您可以继续描述来调整动效，或使用参数面板进行微调。",
+          "timestamp": 1768465084020,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768465173256_1kuday1",
+          "role": "user",
+          "content": "射线密度和起点深度参数调整无效，修复下。并且射线长度太长了，优化下",
+          "timestamp": 1768465173256
+        },
+        {
+          "id": "msg_1768465185376_w8afbgl",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768465185376,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768465378977_dd2csc5",
+          "role": "user",
+          "content": "每个射线段的颜色改为以下逻辑： 每条线段自身，更靠近屏幕的部分更亮，更远离屏幕的部分更暗。 随着线段从起点运动到终点，透明度逐渐从0到1。",
+          "timestamp": 1768465378977
+        },
+        {
+          "id": "msg_1768465392581_h6mvjr5",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768465392581,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768465415285_fzd4ibj",
+          "role": "user",
+          "content": "颜色太白了，需要更接近近射线主色调",
+          "timestamp": 1768465415285
+        },
+        {
+          "id": "msg_1768465428772_b32swxl",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768465428772,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768465523481_hmfofc1",
+          "role": "user",
+          "content": "射线段长度随机一点，在正负20%之内。射线段的运动速度也随机一点，正负10%随机",
+          "timestamp": 1768465523481
+        },
+        {
+          "id": "msg_1768465540124_igt60nq",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768465540124,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768465620766_f0oqxwa",
+          "role": "user",
+          "content": "运动到终点之后，文字轮廓上10%的射线段继续慢速向外发散",
+          "timestamp": 1768465620766
+        },
+        {
+          "id": "msg_1768465638925_chet2s4",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768465638925,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768465764746_dhepkcj",
+          "role": "user",
+          "content": "文字轮廓上10%向外发散的射线段运动逻辑需要更顺滑一点，不要出现明显断层，可以这样实现，主体部分在缓慢停下的时候，10%向外发散的射线段也同步缓慢停下，只不过加速度小30%",
+          "timestamp": 1768465764746
+        },
+        {
+          "id": "msg_1768465781968_12u6fa3",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768465781968,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768466346124_d4yrc8k",
+          "role": "user",
+          "content": "所有射线段在运动到最后的时候顶点会突然变亮，修复下",
+          "timestamp": 1768466346124
+        },
+        {
+          "id": "msg_1768466359991_kq8ydsx",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768466359991,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768466377899_ly411et",
+          "role": "user",
+          "content": "向外发散的射线段，发散幅度再小40%",
+          "timestamp": 1768466377899
+        },
+        {
+          "id": "msg_1768466394112_afhjn7e",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768466394112,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768466407559_zrmygbu",
+          "role": "user",
+          "content": "仅保留文字边缘，不用填充",
+          "timestamp": 1768466407559
+        },
+        {
+          "id": "msg_1768466422548_573d10u",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768466422548,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768466465446_4ky818i",
+          "role": "user",
+          "content": "向外发散的射线段改为占总数的20%，并且发散幅度随机",
+          "timestamp": 1768466465446
+        },
+        {
+          "id": "msg_1768466481192_xswogsd",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768466481192,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768466518513_8otvkue",
+          "role": "user",
+          "content": "发散幅度在当前基础上，减弱40%",
+          "timestamp": 1768466518513
+        },
+        {
+          "id": "msg_1768466534357_7azujnj",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768466534357,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768466551948_fnmz8bt",
+          "role": "user",
+          "content": "文字整体加一个随机扰动，参数可调",
+          "timestamp": 1768466551948
+        },
+        {
+          "id": "msg_1768466567268_6d54v34",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768466567268,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768466663185_l5ek458",
+          "role": "user",
+          "content": "移除当前的随机扰动效果。新增随机效果：随机射线段长度正负10%，略微随机射线段位置",
+          "timestamp": 1768466663185
+        },
+        {
+          "id": "msg_1768466679823_fx6vzxk",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768466679823,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768466764883_87ql8nv",
+          "role": "user",
+          "content": "在动效最终阶段，随着射线段的发散，整体透明度减弱到0，做一个渐隐效果",
+          "timestamp": 1768466764883
+        },
+        {
+          "id": "msg_1768466782870_8ds472w",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768466782870,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768466822184_yfb01uq",
+          "role": "user",
+          "content": "文字本体渐隐效果提前，并且渐隐速度快一些",
+          "timestamp": 1768466822184
+        },
+        {
+          "id": "msg_1768466838335_urlvllv",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768466838335,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768466866005_4jlotfy",
+          "role": "user",
+          "content": "渐隐速度再快40%",
+          "timestamp": 1768466866005
+        },
+        {
+          "id": "msg_1768466884839_jhfgwsu",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768466884839,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768467487170_3wwlrws",
+          "role": "user",
+          "content": "现在的射线段前后有些太均匀了，优化下射线段的绘制形态",
+          "timestamp": 1768467487170
+        },
+        {
+          "id": "msg_1768467508165_yw12s8u",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768467508165,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        },
+        {
+          "id": "msg_1768467672176_bvkzsbg",
+          "role": "user",
+          "content": "射线长度加一些随机值，正负5%",
+          "timestamp": 1768467672176
+        },
+        {
+          "id": "msg_1768467693387_ka2gk9y",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1768467693387,
+          "motionSnapshot": "motion_1768465083997_gj9pu2j"
+        }
+      ],
+      "motion": {
+        "id": "motion_1768465083997_gj9pu2j",
+        "renderMode": "canvas",
+        "duration": 5000,
+        "width": 1280,
+        "height": 720,
+        "backgroundColor": "#050200",
+        "elements": [
+          {
+            "id": "el0",
+            "type": "shape",
+            "properties": {
+              "x": 640,
+              "y": 360,
+              "width": 100,
+              "height": 100,
+              "opacity": 1,
+              "rotation": 0,
+              "fill": "#3b82f6"
+            },
+            "animation": {
+              "type": "keyframe",
+              "duration": 3000,
+              "delay": 0,
+              "easing": "ease-in-out",
+              "loop": true
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "id": "textString",
+            "name": "显示文字",
+            "type": "string",
+            "path": "params.textString",
+            "stringValue": "2026",
+            "maxLength": 10
+          },
+          {
+            "id": "mainColor",
+            "name": "射线主色",
+            "type": "color",
+            "path": "params.mainColor",
+            "colorValue": "#ff9500"
+          },
+          {
+            "id": "particleCount",
+            "name": "射线密度",
+            "type": "number",
+            "path": "params.particleCount",
+            "min": 500,
+            "max": 8000,
+            "step": 100,
+            "value": 8000
+          },
+          {
+            "id": "originDepth",
+            "name": "起点深度",
+            "type": "number",
+            "path": "params.originDepth",
+            "min": 0,
+            "max": 1,
+            "step": 0.05,
+            "value": 0.95
+          },
+          {
+            "id": "rayLength",
+            "name": "基准射线长度",
+            "type": "number",
+            "path": "params.rayLength",
+            "min": 0.01,
+            "max": 0.5,
+            "step": 0.01,
+            "value": 0.1
+          },
+          {
+            "id": "rayLengthRandom",
+            "name": "长度随机抖动",
+            "type": "number",
+            "path": "params.rayLengthRandom",
+            "min": 0,
+            "max": 0.2,
+            "step": 0.01,
+            "value": 0.1
+          },
+          {
+            "id": "posRandomness",
+            "name": "位置随机感",
+            "type": "number",
+            "path": "params.posRandomness",
+            "min": 0,
+            "max": 0.02,
+            "step": 0.001,
+            "value": 0.002
+          },
+          {
+            "id": "fadeOutStart",
+            "name": "渐隐开始时刻",
+            "type": "number",
+            "path": "params.fadeOutStart",
+            "min": 0.1,
+            "max": 0.9,
+            "step": 0.05,
+            "value": 0.5,
+            "unit": "进度"
+          },
+          {
+            "id": "fadeOutSpeed",
+            "name": "渐隐速度倍率",
+            "type": "number",
+            "path": "params.fadeOutSpeed",
+            "min": 1,
+            "max": 15,
+            "step": 0.1,
+            "value": 6
+          },
+          {
+            "id": "taperRatio",
+            "name": "射线两端尖锐度",
+            "type": "number",
+            "path": "params.taperRatio",
+            "min": 0,
+            "max": 1,
+            "step": 0.1,
+            "value": 0.9
+          }
+        ],
+        "code": "let points = [];\nlet lastText = '';\nlet lastCount = 0;\nlet lastPosRandom = 0;\nlet lastLenRandom = 0;\n\nfunction getPointsFromText(text, count, posRandom, lenRandom) {\n  const canvas = document.createElement('canvas');\n  const ctx = canvas.getContext('2d');\n  canvas.width = 1000;\n  canvas.height = 500;\n  \n  ctx.fillStyle = 'white';\n  ctx.font = 'bold 240px Arial';\n  ctx.textAlign = 'center';\n  ctx.textBaseline = 'middle';\n  \n  ctx.strokeStyle = 'white';\n  ctx.lineWidth = 4;\n  ctx.strokeText(text, 500, 250);\n  \n  const imageData = ctx.getImageData(0, 0, 1000, 500).data;\n  const edgePoints = [];\n  \n  for (let y = 10; y < 490; y += 1) {\n    for (let x = 10; x < 990; x += 1) {\n      const idx = (y * 1000 + x) * 4;\n      if (imageData[idx] > 50) {\n        edgePoints.push({ x: (x - 500) / 500, y: (y - 250) / 500 });\n      }\n    }\n  }\n  \n  const result = [];\n  const { seededRandomRange, seededRandomInt } = window.__motionUtils;\n  if (edgePoints.length === 0) return [];\n  \n  for (let i = 0; i < count; i++) {\n    const p = edgePoints[seededRandomInt(i, 0, edgePoints.length - 1)];\n    // 增加长度随机抖动，基于 lenRandom 参数\n    const lenVariation = seededRandomRange(i * 13, 1 - lenRandom, 1 + lenRandom);\n    const speedOffset = seededRandomRange(i * 17, 0.9, 1.1);\n    const isDissipating = (i % 5 === 0);\n    const dissipateScale = isDissipating ? seededRandomRange(i * 23, 1.03, 1.15) : 1.0;\n    \n    const offsetX = seededRandomRange(i * 31, -posRandom, posRandom);\n    const offsetY = seededRandomRange(i * 37, -posRandom, posRandom);\n    \n    result.push({ \n      x: p.x + offsetX, \n      y: p.y + offsetY, \n      id: i, \n      lenVariation, \n      speedOffset, \n      isDissipating, \n      dissipateScale\n    });\n  }\n  return result;\n}\n\nfunction render(ctx, time, params, canvas) {\n  const { width, height } = canvas;\n  const centerX = width / 2;\n  const centerY = height / 2;\n  const totalDuration = 5000;\n  \n  const currentCount = Math.floor(params.particleCount || 4000);\n  const currentPosRandom = params.posRandomness || 0.005;\n  const currentLenRandom = params.rayLengthRandom || 0.05;\n\n  if (lastText !== params.textString || lastCount !== currentCount || lastPosRandom !== currentPosRandom || lastLenRandom !== currentLenRandom || points.length === 0) {\n    points = getPointsFromText(params.textString || '2026', currentCount, currentPosRandom, currentLenRandom);\n    lastText = params.textString;\n    lastCount = currentCount;\n    lastPosRandom = currentPosRandom;\n    lastLenRandom = currentLenRandom;\n  }\n\n  const mainColor = params.mainColor || '#ff9500';\n  const rayLenRatio = params.rayLength || 0.1;\n  const originDepth = params.originDepth || 0.95;\n  const fadeOutStart = params.fadeOutStart || 0.5;\n  const fadeOutSpeed = params.fadeOutSpeed || 6.3;\n  const taperRatio = params.taperRatio !== undefined ? params.taperRatio : 0.8;\n  \n  const globalProgress = time / totalDuration;\n  let globalAlpha = 1.0;\n  if (globalProgress > fadeOutStart) {\n    globalAlpha = Math.max(0, 1.0 - (globalProgress - fadeOutStart) * fadeOutSpeed);\n  }\n  \n  ctx.globalCompositeOperation = 'lighter';\n  const baseScale = Math.min(width, height) * 0.8;\n  const baseLineWidth = Math.min(width, height) * 0.002;\n\n  const r = parseInt(mainColor.slice(1, 3), 16);\n  const g = parseInt(mainColor.slice(3, 5), 16);\n  const b = parseInt(mainColor.slice(5, 7), 16);\n\n  points.forEach((p) => {\n    const progress = (time / totalDuration) * p.speedOffset;\n    const clampedProgress = Math.min(1, progress);\n    \n    let easeVal;\n    if (p.isDissipating) {\n      easeVal = (1 - Math.pow(1 - clampedProgress, 3.2)) * p.dissipateScale;\n    } else {\n      easeVal = 1 - Math.pow(1 - clampedProgress, 4);\n    }\n\n    const tx = p.x * baseScale;\n    const ty = p.y * baseScale;\n    const ox = tx * (1 - originDepth);\n    const oy = ty * (1 - originDepth);\n    \n    const headX = ox + (tx - ox) * easeVal;\n    const headY = oy + (ty - oy) * easeVal;\n    \n    const individualRayLen = rayLenRatio * p.lenVariation;\n    const tailEase = Math.max(0, easeVal - individualRayLen);\n    const tailX = ox + (tx - ox) * tailEase;\n    const tailY = oy + (ty - oy) * tailEase;\n    \n    const drawHeadX = centerX + headX;\n    const drawHeadY = centerY + headY;\n    const drawTailX = centerX + tailX;\n    const drawTailY = centerY + tailY;\n\n    let alpha = Math.min(clampedProgress * 5, 1.0) * globalAlpha;\n    if (p.isDissipating) {\n      alpha *= Math.max(0, 1 - (clampedProgress - 0.7) * 3.33);\n    }\n\n    if (alpha <= 0) return;\n\n    const grad = ctx.createLinearGradient(drawTailX, drawTailY, drawHeadX, drawHeadY);\n    grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0)`);\n    grad.addColorStop(0.1, `rgba(${r}, ${g}, ${b}, ${alpha * 0.2})`);\n    grad.addColorStop(0.85, `rgba(${r}, ${g}, ${b}, ${alpha * 0.95})`);\n    grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);\n\n    ctx.beginPath();\n    ctx.strokeStyle = grad;\n    ctx.lineWidth = baseLineWidth * (0.4 + (1.0 - taperRatio) * 0.6) * (0.7 + easeVal * 0.3);\n    ctx.lineCap = 'butt';\n    ctx.moveTo(drawTailX, drawTailY);\n    ctx.lineTo(drawHeadX, drawHeadY);\n    ctx.stroke();\n  });\n\n  ctx.globalCompositeOperation = 'screen';\n  const glowSize = Math.min(width, height) * 0.7;\n  const glow = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, glowSize);\n  glow.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${0.05 * globalAlpha})`);\n  glow.addColorStop(1, 'transparent');\n  ctx.fillStyle = glow;\n  ctx.fillRect(0, 0, width, height);\n}\n\nwindow.__motionRender = render;",
+        "createdAt": 1768465083996,
+        "updatedAt": 1768467942501
+      },
+      "createdAt": 1768466334858,
+      "updatedAt": 1768466334858
+    }
+  },
+  {
+    "version": "0.1.0",
+    "exportedAt": 1768550485646,
+    "conversation": {
+      "id": "278c89bb-bea1-4b81-a5c5-2333a1c37b9b",
+      "title": "烟花效果 (Ver 1)",
+      "messages": [
+        {
+          "id": "msg_1767515571399_cabu6lf",
+          "role": "user",
+          "content": "生成一个烟花效果，要求模拟最真实的烟花爆炸效果，符合物理学规律，同时保证预览状态下播放不卡顿。 随机从屏幕底部向上发射烟花，烟花爆炸时产生多彩的光点，光点逐渐消散，光点要有光晕和尾迹效果。 烟花类型包括以下5种，每种烟花的出现概率相同： 普通烟花。 二次爆炸烟花是有特殊效果的烟花，最终爆炸生成更多的子烟花，形成二次爆炸效果。 形状烟花是有特殊形状的烟花，最终爆炸生成特定形状的光点排列，如心形、星形等。 文字烟花是有特殊形状的烟花，最终爆炸生成特定形状的文字形状，如“Happy New Year”等。 logo烟花，支持传入一张PNG图片，部分是透明的，部分不透明，覆盖不透明的部分即可，可以与文字烟花的实现方式相同。 文字烟花效果需要考虑各种因素，你自己判断，同时满足以下条件： 1. 文字形状要清晰可辨认，且符合烟花爆炸的视觉效果。 2. 爆炸后效果仍然需要符合物理学规律，光点的运动轨迹和消散效果要自然。 3. 文字内容不需要用户输入，直接用内置生成的几个字符串就行。 由于粒子爆炸效果考虑渲染性能，可以进行适当的优化。 logo烟花 & 形状烟花 & 文字烟花粒子可以稍微随机发散一点，在能看出形状的前提下加一点随机性，随机性配制成参数，可随时调整。持续时间30s",
+          "timestamp": 1767515571399
+        },
+        {
+          "id": "msg_1767515664839_hv7exei",
+          "role": "assistant",
+          "content": "已为您生成动效，可以在右侧预览区查看。您可以继续描述来调整动效，或使用参数面板进行微调。",
+          "timestamp": 1767515664839,
+          "motionSnapshot": "motion_1767515664804_lgxsy9i"
+        },
+        {
+          "id": "msg_1767516086928_xpea9sq",
+          "role": "user",
+          "content": "烟花颜色会突变，修复下",
+          "timestamp": 1767516086928
+        },
+        {
+          "id": "msg_1767516159608_3fmbwd1",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767516159608,
+          "motionSnapshot": "motion_1767515664804_lgxsy9i"
+        },
+        {
+          "id": "msg_1767516225719_je5m4i1",
+          "role": "user",
+          "content": "烟花粒子加一些尾焰效果，并且粒子更亮一些，可以有辉光的光晕效果。并且重力下落的效果更明显一点",
+          "timestamp": 1767516225719
+        },
+        {
+          "id": "msg_1767516302110_mhmsbky",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767516302110,
+          "motionSnapshot": "motion_1767515664804_lgxsy9i"
+        },
+        {
+          "id": "msg_1767516453804_ys5uijf",
+          "role": "user",
+          "content": "文字字符串改为以下几个“2025”，“新年快乐”，“圣诞快乐”，“干杯”，“BILIBILI”。",
+          "timestamp": 1767516453804
+        },
+        {
+          "id": "msg_1767516497560_xqcqsch",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767516497560,
+          "motionSnapshot": "motion_1767515664804_lgxsy9i"
+        },
+        {
+          "id": "msg_1767516656504_xmtu1mc",
+          "role": "user",
+          "content": "心形烟花有点丑，优化下。另外新增一个参数，可以调整烟花发射频率",
+          "timestamp": 1767516656504
+        },
+        {
+          "id": "msg_1767516714720_49xtvvd",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767516714720,
+          "motionSnapshot": "motion_1767515664804_lgxsy9i"
+        },
+        {
+          "id": "msg_1767931943668_ji3uaq4",
+          "role": "user",
+          "content": "动效总时长改为可调参数 2s 到 5s",
+          "timestamp": 1767931943668
+        },
+        {
+          "id": "msg_1767931980915_8wwhpsd",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767931980915,
+          "motionSnapshot": "motion_1767515664804_lgxsy9i"
+        },
+        {
+          "id": "msg_1767932161405_mr10uxk",
+          "role": "user",
+          "content": "你需要使用durationCode特性，根据“动画时长”的参数来计算动效总时长",
+          "timestamp": 1767932161405
+        },
+        {
+          "id": "msg_1767932205062_n24oh44",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767932205062,
+          "motionSnapshot": "motion_1767515664804_lgxsy9i"
+        },
+        {
+          "id": "msg_1767932452215_77x42tf",
+          "role": "user",
+          "content": "需求1: 发射频率改为1到30。需求2: 如果每个烟花播放完成的时间是x秒，那么从durationTime-x秒开始，就不应该新增烟花粒子， 确保每个烟花在动画结束时播放完整。需求3: 文字烟花出现概率50%，LOGO烟花出现概率30%，普通烟花出现概率20%",
+          "timestamp": 1767932452215
+        },
+        {
+          "id": "msg_1767932501761_cb20485",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767932501761,
+          "motionSnapshot": "motion_1767515664804_lgxsy9i"
+        }
+      ],
+      "motion": {
+        "id": "motion_1767515664804_lgxsy9i",
+        "renderMode": "canvas",
+        "duration": 5000,
+        "durationCode": "params.durationTime",
+        "width": 640,
+        "height": 360,
+        "backgroundColor": "#000000",
+        "elements": [],
+        "parameters": [
+          {
+            "id": "durationTime",
+            "name": "动画时长",
+            "type": "number",
+            "path": "params.durationTime",
+            "min": 2000,
+            "max": 10000,
+            "step": 100,
+            "value": 5000,
+            "unit": "ms"
+          },
+          {
+            "id": "fireworkCount",
+            "name": "发射频率",
+            "type": "number",
+            "path": "params.fireworkCount",
+            "min": 1,
+            "max": 30,
+            "step": 1,
+            "value": 6
+          },
+          {
+            "id": "gravity",
+            "name": "重力系数",
+            "type": "number",
+            "path": "params.gravity",
+            "min": 50,
+            "max": 400,
+            "step": 10,
+            "value": 300
+          },
+          {
+            "id": "friction",
+            "name": "空气阻力",
+            "type": "number",
+            "path": "params.friction",
+            "min": 0.8,
+            "max": 0.99,
+            "step": 0.01,
+            "value": 0.97
+          },
+          {
+            "id": "particleCount",
+            "name": "粒子密度",
+            "type": "number",
+            "path": "params.particleCount",
+            "min": 50,
+            "max": 1000,
+            "step": 50,
+            "value": 900
+          },
+          {
+            "id": "explosionSize",
+            "name": "爆炸范围",
+            "type": "number",
+            "path": "params.explosionSize",
+            "min": 0.5,
+            "max": 2,
+            "step": 0.1,
+            "value": 1
+          },
+          {
+            "id": "shapeRandomness",
+            "name": "形状离散度",
+            "type": "number",
+            "path": "params.shapeRandomness",
+            "min": 0,
+            "max": 2,
+            "step": 0.1,
+            "value": 0.1
+          },
+          {
+            "id": "logoImage",
+            "name": "Logo图片",
+            "type": "image",
+            "path": "params.logoImage",
+            "imageValue": "blob:http://localhost:5173/daa787ed-8103-469a-88ee-d050b9c0a6d0",
+            "placeholderImage": "__PLACEHOLDER__"
+          },
+          {
+            "id": "logoScale",
+            "name": "Logo大小",
+            "type": "number",
+            "path": "params.logoScale",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.1,
+            "value": 1.5
+          }
+        ],
+        "code": "const CACHE = {\n  textPoints: {},\n  logoPoints: null,\n  lastLogoSrc: null,\n  timeline: null,\n  lastCount: null,\n  lastDuration: null,\n  offscreenCanvas: null\n};\n\nconst TEXT_LIST = ['2025', '新年快乐', '圣诞快乐', '干杯', 'BILIBILI'];\n\nfunction getTextPoints(text, canvas) {\n  if (CACHE.textPoints[text]) return CACHE.textPoints[text];\n  \n  const size = 100;\n  if (!CACHE.offscreenCanvas) CACHE.offscreenCanvas = document.createElement('canvas');\n  const ctx = CACHE.offscreenCanvas.getContext('2d');\n  CACHE.offscreenCanvas.width = size * 6;\n  CACHE.offscreenCanvas.height = size * 1.5;\n  \n  ctx.clearRect(0, 0, CACHE.offscreenCanvas.width, CACHE.offscreenCanvas.height);\n  ctx.font = `bold ${size}px \"Microsoft YaHei\", \"PingFang SC\", sans-serif`;\n  ctx.fillStyle = '#ffffff';\n  ctx.textAlign = 'center';\n  ctx.textBaseline = 'middle';\n  ctx.fillText(text, CACHE.offscreenCanvas.width / 2, size * 0.75);\n  \n  const imageData = ctx.getImageData(0, 0, CACHE.offscreenCanvas.width, CACHE.offscreenCanvas.height);\n  const points = [];\n  const step = 2;\n  for (let y = 0; y < CACHE.offscreenCanvas.height; y += step) {\n    for (let x = 0; x < CACHE.offscreenCanvas.width; x += step) {\n      if (imageData.data[(y * CACHE.offscreenCanvas.width + x) * 4 + 3] > 128) {\n        points.push({\n          x: (x - CACHE.offscreenCanvas.width / 2) / size,\n          y: (y - size * 0.75) / size\n        });\n      }\n    }\n  }\n  CACHE.textPoints[text] = points;\n  return points;\n}\n\nfunction getLogoPoints(img) {\n  if (!img || !(img instanceof HTMLImageElement)) return null;\n  if (CACHE.lastLogoSrc === img.src && CACHE.logoPoints) return CACHE.logoPoints;\n  \n  const size = 200;\n  if (!CACHE.offscreenCanvas) CACHE.offscreenCanvas = document.createElement('canvas');\n  const ctx = CACHE.offscreenCanvas.getContext('2d');\n  CACHE.offscreenCanvas.width = size;\n  CACHE.offscreenCanvas.height = size;\n  \n  const aspect = img.width / img.height;\n  let dw = size, dh = size;\n  if (aspect > 1) dh = size / aspect;\n  else dw = size * aspect;\n  \n  ctx.clearRect(0, 0, size, size);\n  ctx.drawImage(img, (size - dw)/2, (size - dh)/2, dw, dh);\n  \n  const imageData = ctx.getImageData(0, 0, size, size);\n  const points = [];\n  const step = 2;\n  for (let y = 0; y < size; y += step) {\n    for (let x = 0; x < size; x += step) {\n      if (imageData.data[(y * size + x) * 4 + 3] > 128) {\n        points.push({\n          x: (x - size / 2) / size,\n          y: (y - size / 2) / size\n        });\n      }\n    }\n  }\n  \n  CACHE.lastLogoSrc = img.src;\n  CACHE.logoPoints = points;\n  return points;\n}\n\n// 生成确定性的烟花时间表，支持数量变化\nfunction generateTimeline(duration, count) {\n  if (CACHE.timeline && CACHE.lastCount === count && CACHE.lastDuration === duration) return CACHE.timeline;\n  \n  const { createRandomSequence } = window.__motionUtils;\n  const timeline = [];\n  const seq = createRandomSequence(12345);\n  \n  // 单个烟花完整生命周期约为 3000ms (1000ms 上升 + 2000ms 爆炸)\n  // 确保最后一个烟花能完整播放，截止发射时间为 duration - 3000ms\n  const singleFireworkDuration = 3000;\n  let maxStartTime = duration - singleFireworkDuration;\n  \n  // 如果总时长太短，至少允许在开始时发射\n  if (maxStartTime < 0) maxStartTime = 0;\n  \n  for (let i = 0; i < count; i++) {\n    const typeRand = seq();\n    let type = 'normal';\n    \n    // 概率调整：LOGO 30%, 文字 50%, 普通 20%\n    if (typeRand < 0.3) {\n      type = 'logo';\n    } else if (typeRand < 0.8) {\n      type = 'text';\n    } else {\n      // 剩余20%中随机分配形状、双层或普通\n      const subRand = seq();\n      if (subRand > 0.6) type = 'shape';\n      else if (subRand > 0.3) type = 'double';\n      else type = 'normal';\n    }\n    \n    // 在允许的时间范围内均匀分布，加一点随机抖动\n    // 确保时间不超过 maxStartTime\n    const baseTime = i * (maxStartTime / Math.max(1, count));\n    const randomOffset = seq() * 400 - 200;\n    let startTime = baseTime + randomOffset;\n    \n    // 边界限制\n    startTime = Math.max(0, Math.min(startTime, maxStartTime));\n    \n    timeline.push({\n      id: i,\n      startTime: startTime, \n      x: 0.15 + seq() * 0.7, \n      targetY: 0.15 + seq() * 0.25, \n      hue: Math.floor(seq() * 360),\n      type: type,\n      textIndex: Math.floor(seq() * TEXT_LIST.length),\n      shapeType: seq() > 0.5 ? 'heart' : 'star'\n    });\n  }\n  \n  // 按时间排序确保渲染顺序\n  timeline.sort((a, b) => a.startTime - b.startTime);\n  \n  CACHE.timeline = timeline;\n  CACHE.lastCount = count;\n  CACHE.lastDuration = duration;\n  return timeline;\n}\n\nfunction render(ctx, time, params, canvas) {\n  const { width, height } = canvas;\n  const { createRandomSequence } = window.__motionUtils;\n  \n  const duration = params.durationTime || 5000;\n  const gravity = (params.gravity || 200) * height / 1000;\n  const friction = params.friction || 0.95;\n  const baseParticleCount = params.particleCount || 650;\n  const explosionScale = params.explosionSize || 1.0;\n  const shapeRandomness = params.shapeRandomness || 0.2;\n  const fireworkCount = params.fireworkCount || 15;\n  \n  ctx.globalCompositeOperation = 'lighter';\n  \n  const timeline = generateTimeline(duration, fireworkCount);\n  const launchDuration = 1000;\n  const explosionDuration = 2000;\n  \n  const calcPos = (vx, vy, t, startX, startY) => {\n    const drag = Math.pow(friction, t * 60);\n    const effectiveTime = (1 - drag) / Math.max(0.001, 1 - friction);\n    const x = startX + vx * effectiveTime * 0.05;\n    let y = startY + vy * effectiveTime * 0.05;\n    y += 0.5 * gravity * t * t;\n    return { x, y };\n  };\n\n  timeline.forEach(fw => {\n    const lifeTime = time - fw.startTime;\n    if (lifeTime < 0 || lifeTime > (launchDuration + explosionDuration)) return;\n    \n    if (lifeTime < launchDuration) {\n      const progress = lifeTime / launchDuration;\n      const yProgress = 1 - (1 - progress) * (1 - progress);\n      \n      const currentX = fw.x * width;\n      const startY = height;\n      const endY = fw.targetY * height;\n      const currentY = startY - (startY - endY) * yProgress;\n      \n      const trailLen = height * 0.05 * (1 - progress);\n      ctx.beginPath();\n      ctx.moveTo(currentX, currentY);\n      ctx.lineTo(currentX, currentY + trailLen);\n      ctx.strokeStyle = `hsla(${fw.hue}, 100%, 70%, ${1 - progress})`;\n      ctx.lineWidth = width * 0.004;\n      ctx.lineCap = 'round';\n      ctx.stroke();\n      \n      ctx.beginPath();\n      ctx.arc(currentX, currentY, width * 0.006, 0, Math.PI * 2);\n      ctx.fillStyle = `hsl(${fw.hue}, 100%, 90%)`;\n      ctx.fill();\n    } \n    else {\n      const explosionTime = (lifeTime - launchDuration) / 1000;\n      const centerX = fw.x * width;\n      const centerY = fw.targetY * height;\n      \n      const rand = createRandomSequence(fw.id * 1000);\n      \n      let points = null;\n      let pCount = baseParticleCount;\n      let velocityScale = width * 0.3 * explosionScale;\n      \n      if (fw.type === 'logo' && params.logoImage) {\n        points = getLogoPoints(params.logoImage);\n        if (points) {\n           pCount = points.length;\n           velocityScale = width * 0.2 * (params.logoScale || 1);\n        } else {\n           fw.type = 'normal';\n        }\n      } else if (fw.type === 'text') {\n        points = getTextPoints(TEXT_LIST[fw.textIndex], canvas);\n        if (points) {\n           pCount = points.length;\n           velocityScale = width * 0.3;\n        }\n      } else if (fw.type === 'shape') {\n        pCount = baseParticleCount * 0.8; \n      }\n      \n      const step = Math.ceil(pCount / 1000);\n      \n      for (let i = 0; i < pCount; i += step) {\n        const r1 = rand();\n        const r2 = rand();\n        const r3 = rand();\n        \n        let vx, vy;\n        \n        if (points) {\n           const p = points[i % points.length];\n           vx = p.x * velocityScale;\n           vy = p.y * velocityScale;\n           vx += (r1 - 0.5) * width * 0.05 * shapeRandomness;\n           vy += (r2 - 0.5) * width * 0.05 * shapeRandomness;\n        } else if (fw.type === 'shape') {\n           const angle = (i / pCount) * Math.PI * 2;\n           let x, y;\n           \n           if (fw.shapeType === 'star') {\n              const r = 1 + Math.sin(angle * 5) * 0.4;\n              x = r * Math.cos(angle - Math.PI/2);\n              y = r * Math.sin(angle - Math.PI/2);\n           } else {\n              x = 16 * Math.pow(Math.sin(angle), 3);\n              y = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));\n              x /= 16;\n              y /= 16;\n           }\n           \n           vx = x * velocityScale * 0.6;\n           vy = y * velocityScale * 0.6;\n           \n           const spread = 0.9 + r2 * 0.2;\n           vx *= spread;\n           vy *= spread;\n           \n           vx += (r3 - 0.5) * width * 0.01 * shapeRandomness;\n           vy += (r3 - 0.5) * width * 0.01 * shapeRandomness;\n        } else {\n           const angle = r1 * Math.PI * 2;\n           const speed = r2 * velocityScale;\n           vx = Math.cos(angle) * speed;\n           vy = Math.sin(angle) * speed;\n        }\n        \n        let alpha = 1 - (explosionTime / (explosionDuration / 1000));\n        let hue = fw.hue;\n        let size = width * 0.003;\n        let isSecondary = false;\n        \n        let currentT = explosionTime;\n        let startX = centerX;\n        let startY = centerY;\n        let currentVx = vx;\n        let currentVy = vy;\n        \n        if (fw.type === 'double') {\n           const splitDelay = 0.5 + (r3 - 0.5) * 0.4;\n           if (explosionTime > splitDelay) {\n              isSecondary = true;\n              const subTime = explosionTime - splitDelay;\n              const subDuration = 1.0;\n              alpha = 1 - (subTime / subDuration);\n              \n              if (alpha > 0) {\n                  hue = (fw.hue + 120) % 360;\n                  const splitPos = calcPos(vx, vy, splitDelay, centerX, centerY);\n                  startX = splitPos.x;\n                  startY = splitPos.y;\n                  \n                  const subSpeed = velocityScale * 0.6;\n                  currentVx = vx * 0.3 + (r1 - 0.5) * subSpeed;\n                  currentVy = vy * 0.3 + (r2 - 0.5) * subSpeed;\n                  currentT = subTime;\n                  size *= 0.8;\n                  \n                  if (Math.sin(subTime * 30) > 0) alpha *= 0.8;\n              } else {\n                  alpha = 0;\n              }\n           }\n        }\n        \n        if (alpha > 0.01) {\n          const pos = calcPos(currentVx, currentVy, currentT, startX, startY);\n          \n          const trailDt = 0.06;\n          const prevT = Math.max(0, currentT - trailDt);\n          const prevPos = calcPos(currentVx, currentVy, prevT, startX, startY);\n          \n          ctx.beginPath();\n          ctx.moveTo(prevPos.x, prevPos.y);\n          ctx.lineTo(pos.x, pos.y);\n          ctx.lineWidth = size * 2.5;\n          ctx.strokeStyle = `hsla(${hue}, 100%, 60%, ${alpha * 0.4})`; \n          ctx.lineCap = 'round';\n          ctx.stroke();\n          \n          ctx.beginPath();\n          ctx.arc(pos.x, pos.y, size * 0.8, 0, Math.PI * 2);\n          ctx.fillStyle = `hsla(${hue}, 100%, 95%, ${alpha})`;\n          ctx.fill();\n        }\n      }\n    }\n  });\n  \n  ctx.globalAlpha = 1.0;\n}\n\nwindow.__motionRender = render;",
+        "createdAt": 1767515664804,
+        "updatedAt": 1768395066100
+      },
+      "createdAt": 1767932336579,
+      "updatedAt": 1767932336579
+    }
+  },
+  {
+    "version": "0.1.0",
+    "exportedAt": 1768550485632,
+    "conversation": {
+      "id": "5d1dd875-4655-48d2-8b02-dc77713a87c1",
+      "title": "架构图（还行）",
+      "messages": [
+        {
+          "id": "msg_1767878983340_1orai2y",
+          "role": "user",
+          "content": "参考这个文档，生成一个架构图，适配16:9的横屏画布，你可以给这个架构图加一些动画，作为结构说明。总时长20s左右，要求详细展示整体设计以及数据流动性。",
+          "timestamp": 1767878983343,
+          "attachmentIds": [
+            "temp_1767878981837_kdmpupn"
+          ]
+        },
+        {
+          "id": "msg_1767878991981_n5ar6mq",
+          "role": "assistant",
+          "content": "为了更好地理解您的需求，我需要确认几个问题：",
+          "timestamp": 1767878991981
+        },
+        {
+          "id": "msg_1767878995992_z5xxq3h",
+          "role": "user",
+          "content": "您希望架构图以哪种视觉风格呈现？\n→ 极简专业：白/灰底色，清晰的色块与细线，类似大厂技术文档",
+          "timestamp": 1767878995992
+        },
+        {
+          "id": "msg_1767879005747_zjehgr9",
+          "role": "user",
+          "content": "在 20 秒的动画中，您希望如何展示“数据流动性”？\n→ 模块脉冲：数据流经的模块产生轻微缩放或颜色高亮",
+          "timestamp": 1767879005747
+        },
+        {
+          "id": "msg_1767879010697_oq9nnuy",
+          "role": "user",
+          "content": "动画的叙事节奏（镜头语言）更偏向哪种？\n→ 全局概览：镜头固定，各模块通过淡入和连线动画依次出现",
+          "timestamp": 1767879010697
+        },
+        {
+          "id": "msg_1767879016490_wyuie5q",
+          "role": "user",
+          "content": "您是否需要将文档中的“双渲染引擎”作为核心视觉亮点展示？\n→ 是，需要分屏或切换效果对比展示 Canvas 2D 和 Three.js 3D",
+          "timestamp": 1767879016490
+        },
+        {
+          "id": "msg_1767879019924_h4dptu7",
+          "role": "user",
+          "content": "架构图中的文字详细程度如何处理？\n→ 中等：仅保留模块名称和核心职责（如 ChatPanel, LLM Service）",
+          "timestamp": 1767879019924
+        },
+        {
+          "id": "msg_1767879038381_i32z777",
+          "role": "assistant",
+          "content": "已为您生成动效，可以在右侧预览区查看。您可以继续描述来调整动效，或使用参数面板进行微调。",
+          "timestamp": 1767879038381,
+          "motionSnapshot": "motion_1767879038364_w0sk32d"
+        },
+        {
+          "id": "msg_1767879115374_uf9k2mh",
+          "role": "user",
+          "content": "再详细一点",
+          "timestamp": 1767879115374
+        },
+        {
+          "id": "msg_1767879136375_dkqenuj",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1767879136375,
+          "motionSnapshot": "motion_1767879038364_w0sk32d"
+        }
+      ],
+      "motion": {
+        "id": "motion_1767879038364_w0sk32d",
+        "renderMode": "canvas",
+        "duration": 20000,
+        "width": 1920,
+        "height": 1080,
+        "backgroundColor": "#f1f5f9",
+        "elements": [
+          {
+            "id": "ui_layer",
+            "type": "shape",
+            "properties": {
+              "x": 400,
+              "y": 300,
+              "width": 100,
+              "height": 100,
+              "opacity": 1,
+              "rotation": 0,
+              "fill": "#3b82f6"
+            },
+            "animation": {
+              "type": "keyframe",
+              "duration": 3000,
+              "delay": 0,
+              "easing": "ease-in-out",
+              "loop": true
+            }
+          },
+          {
+            "id": "logic_layer",
+            "type": "shape",
+            "properties": {
+              "x": 400,
+              "y": 300,
+              "width": 100,
+              "height": 100,
+              "opacity": 1,
+              "rotation": 0,
+              "fill": "#3b82f6"
+            },
+            "animation": {
+              "type": "keyframe",
+              "duration": 3000,
+              "delay": 0,
+              "easing": "ease-in-out",
+              "loop": true
+            }
+          },
+          {
+            "id": "render_layer",
+            "type": "shape",
+            "properties": {
+              "x": 400,
+              "y": 300,
+              "width": 100,
+              "height": 100,
+              "opacity": 1,
+              "rotation": 0,
+              "fill": "#3b82f6"
+            },
+            "animation": {
+              "type": "keyframe",
+              "duration": 3000,
+              "delay": 0,
+              "easing": "ease-in-out",
+              "loop": true
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "id": "primaryColor",
+            "name": "主色调",
+            "type": "color",
+            "path": "params.primaryColor",
+            "colorValue": "#2563eb"
+          },
+          {
+            "id": "accentColor",
+            "name": "强调色",
+            "type": "color",
+            "path": "params.accentColor",
+            "colorValue": "#8b5cf6"
+          },
+          {
+            "id": "flowSpeed",
+            "name": "数据流速",
+            "type": "number",
+            "path": "params.flowSpeed",
+            "min": 0.5,
+            "max": 5,
+            "step": 0.5,
+            "value": 1
+          },
+          {
+            "id": "showGrid",
+            "name": "显示背景网格",
+            "type": "boolean",
+            "path": "params.showGrid",
+            "boolValue": true
+          },
+          {
+            "id": "detailLevel",
+            "name": "细节丰富度",
+            "type": "number",
+            "path": "params.detailLevel",
+            "min": 1,
+            "max": 3,
+            "step": 1,
+            "value": 3
+          }
+        ],
+        "code": "const { seededRandom, createRandomSequence } = window.__motionUtils;\n\nfunction render(ctx, time, params, canvas) {\n  const { width, height } = canvas;\n  const scale = Math.min(width / 1920, height / 1080);\n  const primaryColor = params.primaryColor || '#2563eb';\n  const accentColor = params.accentColor || '#8b5cf6';\n  const flowSpeed = params.flowSpeed || 2;\n\n  // 1. 背景绘制\n  if (params.showGrid) {\n    ctx.strokeStyle = 'rgba(148, 163, 184, 0.1)';\n    ctx.lineWidth = 1 * scale;\n    const gridSize = 60 * scale;\n    for (let x = 0; x <= width; x += gridSize) {\n      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();\n    }\n    for (let y = 0; y <= height; y += gridSize) {\n      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();\n    }\n  }\n\n  // 2. 架构定义\n  const architecture = [\n    {\n      id: 'input',\n      title: 'INPUT INTERFACE',\n      color: '#3b82f6',\n      y: 0.15,\n      modules: [\n        { name: 'Chat Interface', desc: 'Natural Language Input' },\n        { name: 'Param Controller', desc: 'Manual Adjustment' }\n      ]\n    },\n    {\n      id: 'brain',\n      title: 'MOTION BRAIN (LLM)',\n      color: '#8b5cf6',\n      y: 0.38,\n      modules: [\n        { name: 'DSL Generator', desc: 'Code Generation' },\n        { name: 'Schema Validator', desc: 'JSON Integrity Check' },\n        { name: 'Context Manager', desc: 'History Memory' }\n      ]\n    },\n    {\n      id: 'state',\n      title: 'STATE & SYNC',\n      color: '#10b981',\n      y: 0.61,\n      modules: [\n        { name: 'Zustand Store', desc: 'Reactive State' },\n        { name: 'Time Sync', desc: 'Deterministic Timeline' }\n      ]\n    },\n    {\n      id: 'output',\n      title: 'HYBRID RENDERER',\n      color: '#f59e0b',\n      y: 0.84,\n      modules: [\n        { name: 'Canvas 2D', desc: 'Vector & Particles' },\n        { name: 'WebGL 3.0', desc: 'Three.js Shaders' },\n        { name: 'FFmpeg Export', desc: 'Frame-by-Frame' }\n      ]\n    }\n  ];\n\n  const modW = 280 * scale;\n  const modH = 80 * scale;\n  const layerH = 150 * scale;\n\n  // 3. 绘制连线逻辑\n  function drawFlowLine(x1, y1, x2, y2, isActive) {\n    ctx.beginPath();\n    ctx.strokeStyle = isActive ? primaryColor : '#cbd5e1';\n    ctx.lineWidth = (isActive ? 3 : 1) * scale;\n    ctx.setLineDash(isActive ? [] : [5*scale, 5*scale]);\n    \n    // 贝塞尔曲线连接\n    const cp1y = y1 + (y2 - y1) / 2;\n    const cp2y = y1 + (y2 - y1) / 2;\n    ctx.moveTo(x1, y1);\n    ctx.bezierCurveTo(x1, cp1y, x2, cp2y, x2, y2);\n    ctx.stroke();\n    ctx.setLineDash([]);\n\n    if (isActive) {\n      const t = (time * 0.001 * flowSpeed) % 1;\n      const getBezier = (t) => {\n        const invT = 1 - t;\n        return {\n          x: invT**3 * x1 + 3 * invT**2 * t * x1 + 3 * invT * t**2 * x2 + t**3 * x2,\n          y: invT**3 * y1 + 3 * invT**2 * t * cp1y + 3 * invT * t**2 * cp2y + t**3 * y2\n        };\n      };\n      const pos = getBezier(t);\n      ctx.fillStyle = primaryColor;\n      ctx.shadowBlur = 10 * scale;\n      ctx.shadowColor = primaryColor;\n      ctx.beginPath();\n      ctx.arc(pos.x, pos.y, 5 * scale, 0, Math.PI * 2);\n      ctx.fill();\n      ctx.shadowBlur = 0;\n    }\n  }\n\n  // 4. 渲染各层级\n  architecture.forEach((layer, lIdx) => {\n    const layerY = height * layer.y;\n    const layerProgress = Math.min(1, Math.max(0, (time - lIdx * 800) / 1000));\n    \n    if (layerProgress <= 0) return;\n\n    ctx.save();\n    ctx.globalAlpha = layerProgress;\n\n    // 绘制层背景标题\n    ctx.fillStyle = layer.color + '15';\n    ctx.beginPath();\n    ctx.roundRect(width * 0.1, layerY - layerH/2, width * 0.8, layerH, 15 * scale);\n    ctx.fill();\n\n    ctx.fillStyle = layer.color;\n    ctx.font = `bold ${22 * scale}px monospace`;\n    ctx.textAlign = 'left';\n    ctx.fillText(layer.title, width * 0.12, layerY - layerH/2 + 30 * scale);\n\n    // 绘制模块\n    layer.modules.forEach((mod, mIdx) => {\n      const totalModW = layer.modules.length * modW + (layer.modules.length - 1) * 40 * scale;\n      const startX = (width - totalModW) / 2 + modW / 2;\n      const modX = startX + mIdx * (modW + 40 * scale);\n      const modY = layerY + 10 * scale;\n\n      // 模块容器\n      const isActive = Math.floor(time / 2500) % architecture.length === lIdx;\n      const hover = isActive ? Math.sin(time * 0.005) * 5 * scale : 0;\n\n      ctx.fillStyle = '#ffffff';\n      ctx.shadowBlur = isActive ? 20 * scale : 5 * scale;\n      ctx.shadowColor = isActive ? layer.color + '66' : 'rgba(0,0,0,0.05)';\n      \n      ctx.beginPath();\n      ctx.roundRect(modX - modW/2, modY - modH/2 + hover, modW, modH, 8 * scale);\n      ctx.fill();\n      \n      ctx.strokeStyle = isActive ? layer.color : '#e2e8f0';\n      ctx.lineWidth = 2 * scale;\n      ctx.stroke();\n\n      // 文字内容\n      ctx.shadowBlur = 0;\n      ctx.fillStyle = '#1e293b';\n      ctx.font = `bold ${18 * scale}px sans-serif`;\n      ctx.textAlign = 'center';\n      ctx.fillText(mod.name, modX, modY + hover - 5 * scale);\n      \n      ctx.fillStyle = '#64748b';\n      ctx.font = `${14 * scale}px sans-serif`;\n      ctx.fillText(mod.desc, modX, modY + hover + 20 * scale);\n\n      // 连线到下一层\n      if (lIdx < architecture.length - 1) {\n        const nextLayer = architecture[lIdx + 1];\n        const nextY = height * nextLayer.y - layerH/2 + 10 * scale;\n        \n        // 找到下一层最接近的模块\n        const nextTotalModW = nextLayer.modules.length * modW + (nextLayer.modules.length - 1) * 40 * scale;\n        const nextStartX = (width - nextTotalModW) / 2 + modW / 2;\n        \n        nextLayer.modules.forEach((_, nmIdx) => {\n           if (mIdx === nmIdx || (mIdx === layer.modules.length-1 && nmIdx === nextLayer.modules.length-1)) {\n             const nX = nextStartX + nmIdx * (modW + 40 * scale);\n             drawFlowLine(modX, modY + modH/2 + hover, nX, nextY, isActive);\n           }\n        });\n      }\n    });\n    ctx.restore();\n  });\n\n  // 5. 侧边详细说明 (动态浮现)\n  const infoIdx = Math.floor(time / 5000) % 4;\n  const infoTexts = [\n    [\"Natural Language Understanding\", \"Transforms user intent into structured DSL\"],\n    [\"Deterministic Engine\", \"Ensures frame-perfect consistency across devices\"],\n    [\"Reactive State Management\", \"Real-time synchronization between UI and Canvas\"],\n    [\"Cloud-Ready Export\", \"High-bitrate video encoding from raw buffer data\"]\n  ];\n\n  ctx.save();\n  ctx.translate(width * 0.82, height * 0.4);\n  ctx.fillStyle = '#1e293b';\n  ctx.font = `bold ${24 * scale}px sans-serif`;\n  ctx.textAlign = 'left';\n  ctx.fillText(\"KEY FEATURES\", 0, 0);\n  \n  ctx.lineWidth = 4 * scale;\n  ctx.strokeStyle = primaryColor;\n  ctx.beginPath(); ctx.moveTo(0, 15*scale); ctx.lineTo(100*scale, 15*scale); ctx.stroke();\n\n  infoTexts[infoIdx].forEach((txt, i) => {\n    ctx.fillStyle = i === 0 ? '#334155' : '#64748b';\n    ctx.font = i === 0 ? `bold ${18 * scale}px sans-serif` : `${16 * scale}px sans-serif`;\n    ctx.fillText(txt, 0, 60 * scale + i * 30 * scale);\n  });\n  ctx.restore();\n\n  // 6. 底部进度条\n  const progress = time / 20000;\n  ctx.fillStyle = '#e2e8f0';\n  ctx.fillRect(0, height - 4 * scale, width, 4 * scale);\n  ctx.fillStyle = primaryColor;\n  ctx.fillRect(0, height - 4 * scale, width * progress, 4 * scale);\n}\n\nwindow.__motionRender = render;",
+        "createdAt": 1767879038364,
+        "updatedAt": 1767879178363
+      },
+      "createdAt": 1767878944379,
+      "updatedAt": 1767878944379
+    }
+  },
+  {
+    "version": "0.1.0",
+    "exportedAt": 1768550485632,
+    "conversation": {
+      "id": "f371e0f2-9032-4e9f-8103-5891b4c487b1",
+      "title": "商业化4K高清 (视频)",
+      "messages": [
+        {
+          "id": "msg_1766646803673_kgrn11p",
+          "role": "user",
+          "content": "你需要实现一个这样的效果，生成一个6s的视频： 我会传入一个竖屏图片，实现一个从左上到右下的分割线效果，底图部分，左上部分显示原图，右下部分显示模糊效果。  分割线从左上逐步到右下，在中间位置有个悬停，即视频最初，整个视频都是模糊效果，然后分割线逐步移动到右下角，整个视频是原图效果。  要求分割线的角度可以调整。  分割线是一个金线，有发光的效果，并且有一定的拖尾辉光效果  分割线的运动要有一种渐入渐出的效果",
+          "timestamp": 1766646803673
+        },
+        {
+          "id": "msg_1766646834990_j65kd92",
+          "role": "assistant",
+          "content": "为了更好地理解您的需求，我需要确认几个问题：",
+          "timestamp": 1766646834990
+        },
+        {
+          "id": "msg_1766646942650_awmuo6o",
+          "role": "user",
+          "content": "您提到在中间位置有“悬停”，希望这个悬停动作持续多长时间？\n→ 明显停留 (约 2 - 3 秒)，强调对比",
+          "timestamp": 1766646942650
+        },
+        {
+          "id": "msg_1766646945793_ut17xhs",
+          "role": "user",
+          "content": "关于底图的模糊效果，您希望呈现哪种视觉风格？\n→ 重度毛玻璃/磨砂效果 (完全看不清细节)",
+          "timestamp": 1766646945793
+        },
+        {
+          "id": "msg_1766646963560_ciwn2ck",
+          "role": "user",
+          "content": "本次生成的视频中，您希望分割线的倾斜角度大致是多少？\n→ 倾斜角度设置为参数，可以随时调整",
+          "timestamp": 1766646963560
+        },
+        {
+          "id": "msg_1766647015465_1mc31lj",
+          "role": "assistant",
+          "content": "已为您生成动效，可以在右侧预览区查看。您可以继续描述来调整动效，或使用参数面板进行微调。",
+          "timestamp": 1766647015465,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766647137223_j8e3lqg",
+          "role": "user",
+          "content": "拖尾辉光效果反了，修复下。并且给模糊部分加一个20%的变暗效果",
+          "timestamp": 1766647137223
+        },
+        {
+          "id": "msg_1766647177711_p29gsdi",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766647177711,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766647341872_phexc7z",
+          "role": "user",
+          "content": "辉光效果再淡一点，淡50%",
+          "timestamp": 1766647341872
+        },
+        {
+          "id": "msg_1766647391407_gvf9i8j",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766647391407,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766648669441_2dhiibk",
+          "role": "user",
+          "content": "分割线的风格调整一下，要求中心发光强20%，边缘发光弱20%，中心粗30%，边缘细30%。",
+          "timestamp": 1766648669441
+        },
+        {
+          "id": "msg_1766648742059_ak0r8a0",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766648742059,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766648851389_5ze58a0",
+          "role": "user",
+          "content": "分割线加一下抗锯齿效果",
+          "timestamp": 1766648851389
+        },
+        {
+          "id": "msg_1766648879371_uofgahf",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766648879371,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766649013957_zamea5p",
+          "role": "user",
+          "content": "在屏幕下方1/3处加以下两段文字： 1. 一个风格化的“4K”标识 2. 一段描述文字：“右滑邀您体验vivo 4K高清”  两段文字中心对齐",
+          "timestamp": 1766649013957
+        },
+        {
+          "id": "msg_1766649075553_v0su1wn",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766649075553,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766649131546_lqkrxu7",
+          "role": "user",
+          "content": "字要非常清晰，不要有阴影，透明度效果",
+          "timestamp": 1766649131546
+        },
+        {
+          "id": "msg_1766649169255_rzq7ltk",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766649169255,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766649209962_57x3zof",
+          "role": "user",
+          "content": "“4K”文字的样式再改一下，要求是整体是一个白色圆角矩形，镂空的“4K”字样",
+          "timestamp": 1766649209962
+        },
+        {
+          "id": "msg_1766649281998_4s648f7",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766649281998,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766649444999_l2190oi",
+          "role": "user",
+          "content": "分割线的风格调整一下，要求线段中心发光强50%，线段两端发光弱50%，线段中心粗50%，线段两端细50%",
+          "timestamp": 1766649444999
+        },
+        {
+          "id": "msg_1766649503752_plhk0o8",
+          "role": "assistant",
+          "content": "抱歉，生成动效时遇到问题：Failed to parse LLM response as JSON: Unexpected end of JSON input",
+          "timestamp": 1766649503752
+        },
+        {
+          "id": "msg_1766649516688_mkomye0",
+          "role": "user",
+          "content": "分割线的风格调整一下，要求线段中心发光强50%，线段两端发光弱50%，线段中心粗50%，线段两端细50%",
+          "timestamp": 1766649516688
+        },
+        {
+          "id": "msg_1766649581524_v2rprek",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766649581524,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766649644174_e0tw4vt",
+          "role": "user",
+          "content": "分割线中心亮度再低35%。并且让“右滑邀您体验vivo 4K高清”这句话有一种轻微呼吸浮动的动态感",
+          "timestamp": 1766649644174
+        },
+        {
+          "id": "msg_1766649673824_gdpjbdj",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766649673824,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766649764020_c89s57i",
+          "role": "user",
+          "content": "辉光光晕效果再淡40%",
+          "timestamp": 1766649764020
+        },
+        {
+          "id": "msg_1766649817672_vtswxyt",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766649817672,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766656549948_w7zbjvj",
+          "role": "user",
+          "content": "其他元素保持不变，效果不变。仅将输入参数中的“底图图片”改为“底图视频”，允许用户传入一个视频，并且动效的总时长跟输入视频保持一致",
+          "timestamp": 1766656549948
+        },
+        {
+          "id": "msg_1766656568849_5ckmpy3",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766656568849,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766657506019_7rpjwc5",
+          "role": "user",
+          "content": "分割线的运动速度需要与动效播放时长保持比例关系，目前传入不同长度的视频，分割线的运动速度没变化，不符合预期",
+          "timestamp": 1766657506019
+        },
+        {
+          "id": "msg_1766657531700_pyah0y9",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766657531700,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766659980659_xdf92x5",
+          "role": "user",
+          "content": "金线整体再亮30%，并且目前金线宽度最低是1，我需要金线再细一点，变成0.5",
+          "timestamp": 1766659980659
+        },
+        {
+          "id": "msg_1766659997649_a3ujdif",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766659997649,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        },
+        {
+          "id": "msg_1766660111924_p8ut867",
+          "role": "user",
+          "content": "金线的光晕范围小50%",
+          "timestamp": 1766660111924
+        },
+        {
+          "id": "msg_1766660138035_ypxx6zr",
+          "role": "assistant",
+          "content": "已根据您的要求更新动效。",
+          "timestamp": 1766660138035,
+          "motionSnapshot": "motion_1766647015444_w72v5li"
+        }
+      ],
+      "motion": {
+        "id": "motion_1766647015444_w72v5li",
+        "renderMode": "canvas",
+        "duration": 5040,
+        "width": 640,
+        "height": 360,
+        "backgroundColor": "#000000",
+        "elements": [],
+        "parameters": [
+          {
+            "id": "mainVideo",
+            "name": "底图视频",
+            "type": "video",
+            "path": "params.mainVideo",
+            "videoValue": "__VIDEO_PLACEHOLDER__",
+            "placeholderVideo": "__PLACEHOLDER__",
+            "videoFileName": "1080x1920.mp4",
+            "videoDuration": 5040,
+            "videoWidth": 1080,
+            "videoHeight": 1920
+          },
+          {
+            "id": "angle",
+            "name": "分割线角度",
+            "type": "number",
+            "path": "params.angle",
+            "min": 0,
+            "max": 180,
+            "step": 1,
+            "value": 22,
+            "unit": "deg"
+          },
+          {
+            "id": "blurStrength",
+            "name": "模糊程度",
+            "type": "number",
+            "path": "params.blurStrength",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "value": 26
+          },
+          {
+            "id": "dimStrength",
+            "name": "模糊变暗",
+            "type": "number",
+            "path": "params.dimStrength",
+            "min": 0,
+            "max": 0.8,
+            "step": 0.05,
+            "value": 0.4
+          },
+          {
+            "id": "lineColor",
+            "name": "金线颜色",
+            "type": "color",
+            "path": "params.lineColor",
+            "colorValue": "#ffe014"
+          },
+          {
+            "id": "lineWidth",
+            "name": "金线宽度",
+            "type": "number",
+            "path": "params.lineWidth",
+            "min": 0.1,
+            "max": 20,
+            "step": 0.1,
+            "value": 0.6
+          },
+          {
+            "id": "glowScale",
+            "name": "光晕范围倍数",
+            "type": "number",
+            "path": "params.glowScale",
+            "min": 0.1,
+            "max": 5,
+            "step": 0.1,
+            "value": 1.5
+          },
+          {
+            "id": "pauseDuration",
+            "name": "悬停时长占比",
+            "type": "number",
+            "path": "params.pauseDuration",
+            "min": 0.1,
+            "max": 0.8,
+            "step": 0.1,
+            "value": 0.3
+          },
+          {
+            "id": "showText",
+            "name": "显示文字",
+            "type": "boolean",
+            "path": "params.showText",
+            "boolValue": true
+          },
+          {
+            "id": "textYRatio",
+            "name": "文字垂直位置",
+            "type": "number",
+            "path": "params.textYRatio",
+            "min": 0.5,
+            "max": 0.95,
+            "step": 0.01,
+            "value": 0.62
+          },
+          {
+            "id": "breathSpeed",
+            "name": "文字呼吸速度",
+            "type": "number",
+            "path": "params.breathSpeed",
+            "min": 0.1,
+            "max": 5,
+            "step": 0.1,
+            "value": 5
+          }
+        ],
+        "code": "function render(ctx, time, params, canvas) {\n  const { width, height } = canvas;\n  const video = params.mainVideo;\n  \n  const totalDuration = (video instanceof HTMLVideoElement && video.duration) \n    ? video.duration * 1000 \n    : 8000;\n  \n  const progress = Math.min(time / totalDuration, 1);\n\n  const angleDeg = params.angle || 45;\n  const angleRad = (angleDeg * Math.PI) / 180;\n  const blurAmount = params.blurStrength !== undefined ? params.blurStrength : 15;\n  const dimStrength = params.dimStrength !== undefined ? params.dimStrength : 0.25;\n  const lineColor = params.lineColor || '#f0e13d';\n  const baseLineWidth = params.lineWidth !== undefined ? params.lineWidth : 0.5;\n  const lineWidth = baseLineWidth * (Math.min(width, height) / 360 * 2);\n  const pauseRatio = params.pauseDuration || 0.3;\n  const glowScale = params.glowScale !== undefined ? params.glowScale : 1.5;\n\n  const moveTime = (1 - pauseRatio) / 2;\n  const t1 = moveTime;\n  const t2 = 1 - moveTime;\n\n  let moveProgress = 0;\n  const easeInOut = (t) => t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;\n\n  if (progress < t1) {\n    const p = progress / t1;\n    moveProgress = easeInOut(p) * 0.5;\n  } else if (progress < t2) {\n    moveProgress = 0.5;\n  } else {\n    const p = (progress - t2) / (1 - t2);\n    moveProgress = 0.5 + easeInOut(p) * 0.5;\n  }\n\n  const diag = Math.sqrt(width * width + height * height);\n  const maxDist = diag * 0.8;\n  const currentDist = (moveProgress - 0.5) * 2 * maxDist;\n\n  ctx.save();\n  ctx.fillStyle = '#000';\n  ctx.fillRect(0, 0, width, height);\n  \n  if (video instanceof HTMLVideoElement && video.readyState >= 2) {\n    const videoW = video.videoWidth;\n    const videoH = video.videoHeight;\n    const videoAspect = videoW / videoH;\n    const canvasAspect = width / height;\n    let drawW, drawH, drawX, drawY;\n\n    if (videoAspect > canvasAspect) {\n      drawH = height;\n      drawW = drawH * videoAspect;\n    } else {\n      drawW = width;\n      drawH = drawW / videoAspect;\n    }\n    drawX = (width - drawW) / 2;\n    drawY = (height - drawH) / 2;\n\n    ctx.save();\n    ctx.filter = `blur(${blurAmount}px)`;\n    const scale = 1.05;\n    ctx.drawImage(video, drawX - (drawW * (scale-1)/2), drawY - (drawH * (scale-1)/2), drawW * scale, drawH * scale);\n    ctx.restore();\n\n    if (dimStrength > 0) {\n      ctx.fillStyle = `rgba(0, 0, 0, ${dimStrength})`;\n      ctx.fillRect(0, 0, width, height);\n    }\n\n    ctx.save();\n    ctx.beginPath();\n    ctx.translate(width / 2, height / 2);\n    ctx.rotate(angleRad);\n    ctx.rect(-diag, -diag, currentDist + diag, 2 * diag);\n    ctx.restore();\n    ctx.clip();\n    ctx.drawImage(video, drawX, drawY, drawW, drawH);\n    ctx.restore();\n\n    ctx.save();\n    ctx.translate(width / 2, height / 2);\n    ctx.rotate(angleRad);\n    \n    const lineX = currentDist;\n    const halfDiag = diag; \n\n    const centerW = lineWidth * 1.5;\n    const edgeW = lineWidth * 0.5;\n    \n    const drawShuttlePath = (ctx, x, eW, cW, hD) => {\n      ctx.beginPath();\n      ctx.moveTo(x - eW/2, -hD);\n      ctx.lineTo(x - cW/2, 0);\n      ctx.lineTo(x - eW/2, hD);\n      ctx.lineTo(x + eW/2, hD);\n      ctx.lineTo(x + cW/2, 0);\n      ctx.lineTo(x + eW/2, -hD);\n      ctx.closePath();\n    };\n\n    const lineBodyGrad = ctx.createLinearGradient(0, -halfDiag, 0, halfDiag);\n    lineBodyGrad.addColorStop(0, lineColor + '20');\n    lineBodyGrad.addColorStop(0.2, lineColor);\n    lineBodyGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.7)'); \n    lineBodyGrad.addColorStop(0.8, lineColor);\n    lineBodyGrad.addColorStop(1, lineColor + '20');\n\n    ctx.save();\n    ctx.globalAlpha = 1.3; \n    ctx.shadowColor = lineColor;\n    // 光晕范围缩小50%：将原本的 lineWidth * 3 改为 lineWidth * 1.5\n    ctx.shadowBlur = lineWidth * glowScale;\n    drawShuttlePath(ctx, lineX, edgeW, centerW, halfDiag);\n    ctx.fillStyle = lineBodyGrad;\n    ctx.fill();\n    ctx.restore();\n    \n    ctx.save();\n    ctx.globalCompositeOperation = 'screen';\n    // 中心光晕范围同步缩小，使用 halfDiag * 0.2 代替 0.4\n    const centerBurst = ctx.createRadialGradient(lineX, 0, 0, lineX, 0, halfDiag * 0.2 * glowScale);\n    centerBurst.addColorStop(0, 'rgba(255, 255, 255, 0.4)'); \n    centerBurst.addColorStop(0.2, lineColor + '40');\n    centerBurst.addColorStop(1, 'rgba(0,0,0,0)');\n    ctx.translate(lineX, 0);\n    ctx.scale(0.3, 2.5);\n    ctx.translate(-lineX, 0);\n    ctx.fillStyle = centerBurst;\n    ctx.beginPath();\n    ctx.arc(lineX, 0, halfDiag * 0.2 * glowScale, 0, Math.PI*2);\n    ctx.fill();\n    ctx.restore();\n\n    ctx.restore();\n  }\n\n  if (params.showText !== false) {\n    const textYRatio = params.textYRatio || 0.7;\n    const textBaseY = height * textYRatio;\n    const centerX = width / 2;\n    const refSize = Math.min(width, height);\n    \n    const breathSpeed = params.breathSpeed || 4;\n    const breathTime = (time / 1000) * breathSpeed;\n    const breathOffset = Math.sin(breathTime) * (refSize * 0.01);\n    const breathOpacity = 0.8 + Math.sin(breathTime) * 0.2;\n\n    ctx.save();\n    const badgeHeight = refSize * 0.12;\n    const badgeWidth = badgeHeight * 1.8;\n    const radius = badgeHeight * 0.2;\n    \n    const offCanvas = document.createElement('canvas');\n    offCanvas.width = badgeWidth;\n    offCanvas.height = badgeHeight;\n    const offCtx = offCanvas.getContext('2d');\n    offCtx.fillStyle = '#FFFFFF';\n    offCtx.beginPath();\n    offCtx.roundRect(0, 0, badgeWidth, badgeHeight, radius);\n    offCtx.fill();\n    offCtx.globalCompositeOperation = 'destination-out';\n    offCtx.textAlign = 'center';\n    offCtx.textBaseline = 'middle';\n    offCtx.font = `900 ${badgeHeight * 0.65}px sans-serif`;\n    offCtx.fillText(\"4K\", badgeWidth / 2, badgeHeight / 2 + badgeHeight * 0.04);\n\n    ctx.globalAlpha = breathOpacity;\n    ctx.drawImage(offCanvas, centerX - badgeWidth / 2, textBaseY - badgeHeight / 2);\n\n    const sizeDesc = refSize * 0.04;\n    ctx.font = `${sizeDesc}px sans-serif`;\n    ctx.fillStyle = `rgba(255, 255, 255, ${breathOpacity})`;\n    ctx.textAlign = 'center';\n    ctx.textBaseline = 'top';\n    \n    const gap = badgeHeight * 0.3;\n    ctx.fillText(\"右滑邀您体验vivo 4K高清\", centerX, textBaseY + badgeHeight / 2 + gap + breathOffset);\n    ctx.restore();\n  }\n}\n\nwindow.__motionRender = render;",
+        "createdAt": 1766647015444,
+        "updatedAt": 1767075188974
+      },
+      "createdAt": 1766656489431,
+      "updatedAt": 1766656489431
+    }
+  }
+]
