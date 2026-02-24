@@ -1,4 +1,4 @@
-export const config = { maxDuration: 300 };
+export const config = { maxDuration: 300, memory: 128 };
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
