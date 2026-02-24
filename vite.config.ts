@@ -6,29 +6,15 @@ import packageJson from './package.json'
 
 /**
  * Dev server CORS proxy plugin.
- * Mirrors the Vercel serverless function (api/llm/[...path].ts):
- * reads X-Target-URL header, forwards request to the target LLM API.
+ * Mirrors the Vercel Edge Function (api/proxy.js):
+ * reads X-Target-URL header (full downstream URL), forwards request.
  */
 function devCorsProxy(): Plugin {
   return {
     name: 'dev-cors-proxy',
     configureServer(server) {
-      server.middlewares.use('/api/llm', async (req: IncomingMessage, res: ServerResponse) => {
-        // __config endpoint: report whether builtin key is available
-        if (req.url === '/__config') {
-          const hasBuiltinKey = !!(process.env.LLM_API_KEY && process.env.LLM_BASE_URL);
-          res.writeHead(200, {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          });
-          res.end(JSON.stringify({
-            hasBuiltinKey,
-            defaultModel: hasBuiltinKey ? (process.env.LLM_MODEL || '') : '',
-          }));
-          return;
-        }
-
-        const targetURL = (req.headers['x-target-url'] as string | undefined) || process.env.LLM_BASE_URL;
+      server.middlewares.use('/api/proxy', async (req: IncomingMessage, res: ServerResponse) => {
+        const targetURL = req.headers['x-target-url'] as string | undefined;
 
         if (req.method === 'OPTIONS') {
           res.writeHead(204, {
@@ -42,15 +28,12 @@ function devCorsProxy(): Plugin {
 
         if (!targetURL) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: 'Missing X-Target-URL header and no LLM_BASE_URL configured' }));
+          res.end(JSON.stringify({ error: 'Missing X-Target-URL header' }));
           return;
         }
 
-        // req.url is the path after the /api/llm prefix
-        const downstream = `${targetURL.replace(/\/+$/, '')}${req.url || ''}`;
-
         const headers: Record<string, string> = {};
-        const auth = (req.headers.authorization as string | undefined) || (process.env.LLM_API_KEY ? `Bearer ${process.env.LLM_API_KEY}` : '');
+        const auth = req.headers.authorization as string | undefined;
         if (auth) headers['Authorization'] = auth;
         if (req.headers['content-type']) headers['Content-Type'] = req.headers['content-type'] as string;
 
@@ -62,7 +45,7 @@ function devCorsProxy(): Plugin {
         const body = chunks.length > 0 ? Buffer.concat(chunks) : undefined;
 
         try {
-          const upstream = await fetch(downstream, {
+          const upstream = await fetch(targetURL, {
             method: req.method,
             headers,
             body,

@@ -1,9 +1,4 @@
 {
-  "buildCommand": "npx vite build",
-  "outputDirectory": "dist",
-  "framework": null,
-  "env": {
-    "VITE_BASE_PATH": "/",
-    "VITE_LLM_PROXY": "true"
-  }
+  "buildCommand": "VITE_BASE_PATH=/ VITE_LLM_PROXY=true npx vite build",
+  "outputDirectory": "dist"
 }
