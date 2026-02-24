@@ -44,3 +44,9 @@ CLAUDE.md
 
 # Claude Code local settings
 .claude/
+
+# TypeScript build cache
+tsconfig.tsbuildinfo
+
+# Vercel
+.vercel/

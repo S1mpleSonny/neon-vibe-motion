@@ -19,7 +19,7 @@ Neon is an LLM-based motion graphics generation and real-time control platform. 
 
 Neon is the first open-source AI motion design tool with real-time parameter control (referencing [Higgsfield](https://higgsfield.ai)'s definition of Vibe Motion; if this claim is inaccurate, please open an Issue and I'll correct it promptly).
 
-The catalyst was [Higgsfield](https://higgsfield.ai) releasing their Vibe Motion product — which turned out to be remarkably aligned with the work I'd been doing on [BILIBILI](https://space.bilibili.com/) over the past couple of weeks. After trying it, I found the actual experience fell far short of the marketing claims. As a paid product, it was nowhere near acceptable, and certainly doesn't represent the ceiling of what Vibe Motion can be.
+The catalyst was [Higgsfield](https://higgsfield.ai) releasing their Vibe Motion product — which turned out to be remarkably aligned with the work I'd been doing on [BILIBILI](https://bilibili.com/) over the past couple of weeks. After trying it, I found the actual experience fell far short of the marketing claims. As a paid product, it was nowhere near acceptable, and certainly doesn't represent the ceiling of what Vibe Motion can be.
 
 So I open-sourced the base version of my recent work, hoping to explore the future of Vibe Motion together with the community.
 

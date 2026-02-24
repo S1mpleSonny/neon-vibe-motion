@@ -12,7 +12,7 @@ Thank you for your interest in contributing to Neon! This document provides guid
 ### Getting Started
 
 ```bash
-git clone https://github.com/<your-org>/neon.git
+git clone https://github.com/S1mpleSonny/neon-vibe-motion.git
 cd neon
 pnpm install
 pnpm dev
@@ -59,7 +59,7 @@ Common types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`.
 
 ## Reporting Issues
 
-Use [GitHub Issues](https://github.com/<your-org>/neon/issues) to report bugs or request features.
+Use [GitHub Issues](https://github.com/S1mpleSonny/neon-vibe-motion/issues) to report bugs or request features.
 
 ---
 
@@ -77,7 +77,7 @@ Use [GitHub Issues](https://github.com/<your-org>/neon/issues) to report bugs or
 ### 快速开始
 
 ```bash
-git clone https://github.com/<your-org>/neon.git
+git clone https://github.com/S1mpleSonny/neon-vibe-motion.git
 cd neon
 pnpm install
 pnpm dev
@@ -124,4 +124,4 @@ pnpm dev
 
 ## 问题反馈
 
-通过 [GitHub Issues](https://github.com/<your-org>/neon/issues) 报告 Bug 或提出需求。
+通过 [GitHub Issues](https://github.com/S1mpleSonny/neon-vibe-motion/issues) 报告 Bug 或提出需求。
