@@ -7,6 +7,7 @@ Neon is an LLM-based motion graphics generation and real-time control platform. 
 [中文文档](./README.zh-CN.md)
 
 ![Neon Demo](./assets/demo.gif)
+![Neon Demo 2](./assets/demo2.gif)
 
 ## Live Demo
 
